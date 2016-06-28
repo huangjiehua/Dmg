@@ -4,7 +4,7 @@
 	> Mail: 
 	> Created Time: 2016年06月15日 星期三 17时08分17秒
  ************************************************************************/
-package org.dmg.trie;
+package com.dmg.trie;
 
 import java.util.*;
 

@@ -91,6 +91,7 @@ public class Cache {
                 byte[] value = node.getValue().encode();
                 byte[] key = nodeKey.getData();
 
+
                 batch.put(key, value);
                 batchMemorySize += length(key, value);
             }
