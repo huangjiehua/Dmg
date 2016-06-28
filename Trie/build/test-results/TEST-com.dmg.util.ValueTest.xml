@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.dmg.util.ValueTest" tests="3" skipped="0" failures="0" errors="0" timestamp="2016-06-28T14:32:56" hostname="jiehua-node1" time="0.016">
+  <properties/>
+  <testcase name="testCmp" classname="com.dmg.util.ValueTest" time="0.008"/>
+  <testcase name="testTypes" classname="com.dmg.util.ValueTest" time="0.002"/>
+  <testcase name="longListRLPBug_1" classname="com.dmg.util.ValueTest" time="0.004"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

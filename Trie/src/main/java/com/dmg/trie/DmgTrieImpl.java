@@ -24,19 +24,19 @@ public class DmgTrieImpl {
 
     
     /**
-     * Retrieve a value from a key as String.
+     * Retrieve a value from a key as String, and 32 means the length of key.
      */
-    public static byte[] get64(TrieImpl trie, String key, String field) {
-        return get64(trie, key.getBytes(), field);
+    public static byte[] get32(TrieImpl trie, String key, String field) {
+        return get32(trie, key.getBytes(), field);
     }
 
 
-    public static byte[] get64(TrieImpl trie, byte[] key, String field) {
+    public static byte[] get32(TrieImpl trie, byte[] key, String field) {
         //byte[] k = binToNibbles(key);
         byte[] subkey = new byte[16];
         byte[] rlpdata = new byte[16];
         switch(key[0]) {
-            case 0x10:
+            case '1':
                 {
                     for(int i = 0; i < 16; i++){
                         subkey[i] = key[i];
@@ -46,7 +46,7 @@ public class DmgTrieImpl {
                     System.out.println("result = "+val.asInt());
                 }
                 break;
-            case 0x20:
+            case '2':
                 {
                     for(int i = 0; i < 16; i++){
                         subkey[i] = key[i];
@@ -56,7 +56,7 @@ public class DmgTrieImpl {
                     System.out.println("result = "+val.asInt());
                 }
                 break;
-            case 0x30:
+            case '3':
                 {
                     for(int i = 0; i < 16; i++){
                         subkey[i] = key[i];
@@ -66,7 +66,7 @@ public class DmgTrieImpl {
                     System.out.println("result = "+val.asInt());
                 }
                 break;
-            case 0x40:
+            case '4':
                 {
                     for(int i = 0; i < 16; i++){
                         subkey[i] = key[i];
@@ -76,7 +76,7 @@ public class DmgTrieImpl {
                     for(int i = 16; i < 32;i++){
                         subkey[i-16] = key[i];
                     }
-                    if (subkey[0] == 0x50) {
+                    if (subkey[0] == '5') {
                         KeyValueDataSource levelDb = new LevelDbDataSource("triedb");
                         //levelDb.init();
                         Trie subtrie = new TrieImpl(levelDb, val.asObj());
@@ -84,12 +84,12 @@ public class DmgTrieImpl {
                         Value val1 = Value.fromRlpEncoded(rlpdata);
                         System.out.println("result = "+val1.asInt());
                     }
-                    else if(subkey[0] != 0x00){
+                    else if(subkey[0] != '0'){
                         System.out.println("The key is wrong.");
                     }
                 }
                 break;
-            case 0x60:
+            case '6':
                 {
                     for(int i = 0; i < 16; i++){
                         subkey[i] = key[i];
@@ -99,7 +99,7 @@ public class DmgTrieImpl {
                     for(int i = 16; i < 32;i++){
                         subkey[i-16] = key[i];
                     }
-                    if (subkey[0] == 0x70) {
+                    if (subkey[0] == '7') {
                     	KeyValueDataSource levelDb = new LevelDbDataSource("triedb");
                         //levelDb.init();
                         Trie subtrie = new TrieImpl(levelDb, val.asObj());
@@ -107,7 +107,7 @@ public class DmgTrieImpl {
                         Value val1 = Value.fromRlpEncoded(rlpdata);
                         System.out.println("result = "+val1.asInt());
                     }
-                    else if(subkey[0] != 0x00){
+                    else if(subkey[0] != '0'){
                         System.out.println("The key is wrong");
                     }
                 }
@@ -120,18 +120,18 @@ public class DmgTrieImpl {
     /**
      * Insert key/value pair into trie.
      */
-    public static void update64(TrieImpl trie, String key, String field, String value) {
-        update64(trie, key, field, value);
+    public static void update32(TrieImpl trie, String key, String field, String value) {
+        update32(trie, key, field, value);
     }
 
  
-    public static void update64(TrieImpl trie, byte[] key, String field ,byte[] value) {
+    public static void update32(TrieImpl trie, byte[] key, String field ,byte[] value) {
         //byte[] k = binToNibbles(key);
         byte[] subkey1 = new byte[16];
         byte[] subkey2 = new byte[16];
         byte[] rlpdata = new byte[16];
         switch(key[0]) {
-            case 0x10:
+            case '1':
                 {
                     for(int i = 0; i < 16; i++){
                         subkey1[i] = key[i];
@@ -147,7 +147,7 @@ public class DmgTrieImpl {
                     System.out.println("cur result = "+val.asInt());
                 }
                 break;
-            case 0x20:
+            case '2':
                 {
                 	for(int i = 0; i < 16; i++){
                         subkey1[i] = key[i];
@@ -163,7 +163,7 @@ public class DmgTrieImpl {
                     System.out.println("cur result = "+val.asInt());
                 }
                 break;
-            case 0x30:
+            case '3':
                 {
                 	for(int i = 0; i < 16; i++){
                         subkey1[i] = key[i];
@@ -179,7 +179,7 @@ public class DmgTrieImpl {
                     System.out.println("cur result = "+val.asInt());
                 }
                 break;
-            case 0x40:
+            case '4':
                 {
                 	for(int i = 0; i < 16; i++){
                         subkey1[i] = key[i];
@@ -188,7 +188,7 @@ public class DmgTrieImpl {
                     for(int i = 16; i < 32;i++){
                         subkey2[i-16] = key[i];
                     }
-                    if (subkey2[0] == 0x50) {
+                    if (subkey2[0] == '5') {
                         rlpdata = trie.get(subkey1);
                         Value val = Value.fromRlpEncoded(rlpdata);
                         KeyValueDataSource levelDb = new LevelDbDataSource("triedb");
@@ -201,7 +201,7 @@ public class DmgTrieImpl {
                         val = Value.fromRlpEncoded(rlpdata);
                         System.out.println("cur result = "+val.asInt());
                     }
-                    else if(subkey2[0] == 0x00) {
+                    else if(subkey2[0] == '0') {
                         trie.update(subkey1, value);
                         rlpdata = trie.get(subkey1);
                         Value val = Value.fromRlpEncoded(rlpdata);
@@ -212,7 +212,7 @@ public class DmgTrieImpl {
                     }
                 }
                 break;
-            case 0x60:
+            case '6':
                 {
                 	for(int i = 0; i < 16; i++){
                         subkey1[i] = key[i];
@@ -221,7 +221,7 @@ public class DmgTrieImpl {
                     for(int i = 16; i < 32;i++){
                         subkey2[i-16] = key[i];
                     }
-                    if (subkey2[0] == 0x50) {
+                    if (subkey2[0] == '7') {
                         rlpdata = trie.get(subkey1);
                         Value val = Value.fromRlpEncoded(rlpdata);
                         KeyValueDataSource levelDb = new LevelDbDataSource("triedb");
@@ -234,7 +234,7 @@ public class DmgTrieImpl {
                         val = Value.fromRlpEncoded(rlpdata);
                         System.out.println("cur result = "+val.asInt());
                     }
-                    else if(subkey2[0] == 0x00) {
+                    else if(subkey2[0] == '0') {
                         trie.update(subkey1, value);
                         rlpdata = trie.get(subkey1);
                         Value val = Value.fromRlpEncoded(rlpdata);
@@ -252,12 +252,12 @@ public class DmgTrieImpl {
     /**
      * Delete a key/value pair from the trie.
      */
-    public static void delete64(TrieImpl trie, String key) {
-        update64(trie, key.getBytes(), "test", EMPTY_BYTE_ARRAY);
+    public static void delete32(TrieImpl trie, String key) {
+        update32(trie, key.getBytes(), "test", EMPTY_BYTE_ARRAY);
     }
 
-    public static void delete64(TrieImpl trie, byte[] key) {
-        update64(trie, key, "test", EMPTY_BYTE_ARRAY);
+    public static void delete32(TrieImpl trie, byte[] key) {
+        update32(trie, key, "test", EMPTY_BYTE_ARRAY);
     }
     /**
      * Get all key/value pairs from the trie.

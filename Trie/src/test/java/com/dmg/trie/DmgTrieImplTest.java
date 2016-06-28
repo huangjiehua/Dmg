@@ -10,10 +10,6 @@ package com.dmg.trie;
 import com.dmg.datasource.KeyValueDataSource;
 import com.dmg.datasource.LevelDbDataSource;
 import com.dmg.util.*;
-import org.json.simple.JSONArray;
-import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
-import org.json.simple.parser.ParseException;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Ignore;
@@ -21,8 +17,6 @@ import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.spongycastle.util.encoders.Hex;
-import redis.clients.jedis.Jedis;
-import redis.clients.jedis.Pipeline;
 
 import java.io.File;
 import java.io.IOException;
@@ -43,9 +37,9 @@ public class DmgTrieImplTest {
     private static String LONG_STRING = "1234567890abcdefghijklmnopqrstuvwxxzABCEFGHIJKLMNOPQRSTUVWXYZ";
     private static String ROOT_HASH_EMPTY = Hex.toHexString(EMPTY_TRIE_HASH);
 
-    private static String testkey1 = "1000000000000001";
-    private static String testkey2 = "2000000000000001";
-    private static String testkey3 = "3000000000000001";
+    private static String testkey1 = "10000000000000010000000000000000";
+    private static String testkey2 = "20000000000000010000000000000000";
+    private static String testkey3 = "30000000000000010000000000000000";
     private static String testkey4 = "40000000000000010000000000000000";
     private static String testkey5 = "40000000000000015000000000000001";
     private static String testkey6 = "60000000000000010000000000000000";
@@ -56,8 +50,6 @@ public class DmgTrieImplTest {
     private static String test = "test";
 
     private KeyValueDataSource levelDb = new LevelDbDataSource("triedb");
-    private KeyValueDataSource levelDb_2 = new LevelDbDataSource("triedb");
-//      ROOT: [ '\x16', A ]
 //      A: [ '', '', '', '', B, '', '', '', C, '', '', '', '', '', '', '', '' ]
 //      B: [ '\x00\x6f', D ]
 //      D: [ '', '', '', '', '', '', E, '', '', '', '', '', '', '', '', '', 'verb' ]
@@ -69,7 +61,6 @@ public class DmgTrieImplTest {
     @After
     public void closelevelDb() throws IOException {
         levelDb.close();
-        levelDb_2.close();
     }
 
     @Test
@@ -186,7 +177,7 @@ public class DmgTrieImplTest {
 
         trie.delete(testkey2);
         assertEquals("", new String(trie.get(testkey2)));
-        assertEquals(ROOT_HASH_BEFORE, trie.getRootHash());
+        assertEquals(Hex.toHexString(ROOT_HASH_BEFORE), Hex.toHexString(trie.getRootHash()));
     }
 
     @Test
@@ -202,7 +193,7 @@ public class DmgTrieImplTest {
 
         trie.delete(testkey2);
         assertEquals("", new String(trie.get(testkey2)));
-        assertEquals(ROOT_HASH_BEFORE, trie.getRootHash());
+        assertEquals(Hex.toHexString(ROOT_HASH_BEFORE), Hex.toHexString(trie.getRootHash()));
     }
 
     @Test
@@ -234,9 +225,9 @@ public class DmgTrieImplTest {
         trie.update(testkey2, cat);
         trie.update(testkey3, LONG_STRING);
     
-        trie.delete(ca);
-        trie.delete(cat);
-        trie.delete(doge);
+        trie.delete(testkey1);
+        trie.delete(testkey2);
+        trie.delete(testkey3);
         assertEquals(ROOT_HASH_EMPTY, Hex.toHexString(trie.getRootHash()));
     }
 
@@ -250,22 +241,10 @@ public class DmgTrieImplTest {
         assertTrue("Expected tries to be equal", trie1.equals(trie2));
         assertEquals(Hex.toHexString(trie1.getRootHash()), Hex.toHexString(trie2.getRootHash()));
 
-        trie1.update(testkey1, LONG_STRING);
-        trie2.update(testkey1, LONG_STRING);
+        trie1.update(testkey2, LONG_STRING);
+        trie2.update(testkey3, LONG_STRING);
         assertFalse("Expected tries not to be equal", trie1.equals(trie2));
         assertNotEquals(Hex.toHexString(trie1.getRootHash()), Hex.toHexString(trie2.getRootHash()));
-    }
-
-    @Ignore
-    @Test
-    public void testTrieSync() {
-        TrieImpl trie = new TrieImpl(levelDb);
-
-        trie.update(testkey1, LONG_STRING);
-        assertEquals("Expected no data in database", levelDb.getAddedItems(), 0);
-
-        trie.sync();
-        assertNotEquals("Expected data to be persisted", levelDb.getAddedItems(), 0);
     }
 
     @Ignore
@@ -314,6 +293,6 @@ public class DmgTrieImplTest {
         trie.update("dog", "puppy");
 
         trie.undo();
-        assertEquals(ROOT_HASH_BEFORE, trie.getRootHash());
+        assertEquals(Hex.toHexString(ROOT_HASH_BEFORE), Hex.toHexString(trie.getRootHash()));
     }
 }
