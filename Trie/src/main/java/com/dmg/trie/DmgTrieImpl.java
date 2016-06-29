@@ -41,9 +41,7 @@ public class DmgTrieImpl {
                     for(int i = 0; i < 16; i++){
                         subkey[i] = key[i];
                     }
-                    rlpdata = trie.get(subkey);
-                    Value val = Value.fromRlpEncoded(rlpdata);
-                    System.out.println("result = "+val.asInt());
+                    return trie.get(subkey);
                 }
                 break;
             case '2':
@@ -51,9 +49,7 @@ public class DmgTrieImpl {
                     for(int i = 0; i < 16; i++){
                         subkey[i] = key[i];
                     }
-                    rlpdata = trie.get(subkey);
-                    Value val = Value.fromRlpEncoded(rlpdata);
-                    System.out.println("result = "+val.asInt());
+                    return trie.get(subkey);
                 }
                 break;
             case '3':
@@ -61,9 +57,7 @@ public class DmgTrieImpl {
                     for(int i = 0; i < 16; i++){
                         subkey[i] = key[i];
                     }
-                    rlpdata = trie.get(subkey);
-                    Value val = Value.fromRlpEncoded(rlpdata);
-                    System.out.println("result = "+val.asInt());
+                    return trie.get(subkey);
                 }
                 break;
             case '4':
@@ -71,8 +65,8 @@ public class DmgTrieImpl {
                     for(int i = 0; i < 16; i++){
                         subkey[i] = key[i];
                     }
-                    rlpdata = trie.get(subkey);
-                    Value val = Value.fromRlpEncoded(rlpdata);
+                    return trie.get(subkey);
+                    
                     for(int i = 16; i < 32;i++){
                         subkey[i-16] = key[i];
                     }
@@ -94,8 +88,8 @@ public class DmgTrieImpl {
                     for(int i = 0; i < 16; i++){
                         subkey[i] = key[i];
                     }
-                    rlpdata = trie.get(subkey);
-                    Value val = Value.fromRlpEncoded(rlpdata);
+                    return trie.get(subkey);
+                
                     for(int i = 16; i < 32;i++){
                         subkey[i-16] = key[i];
                     }
@@ -121,11 +115,11 @@ public class DmgTrieImpl {
      * Insert key/value pair into trie.
      */
     public static void update32(TrieImpl trie, String key, String field, String value) {
-        update32(trie, key, field, value);
+        update32(trie, key.getBytes(), field, value);
     }
 
  
-    public static void update32(TrieImpl trie, byte[] key, String field ,byte[] value) {
+    public static void update32(TrieImpl trie, byte[] key, String field ,String value) {
         //byte[] k = binToNibbles(key);
         byte[] subkey1 = new byte[16];
         byte[] subkey2 = new byte[16];
@@ -136,15 +130,7 @@ public class DmgTrieImpl {
                     for(int i = 0; i < 16; i++){
                         subkey1[i] = key[i];
                     }
-                    rlpdata = trie.get(subkey1);
-                    Value val = Value.fromRlpEncoded(rlpdata);
-                    System.out.println("pre result = "+val.asInt());
-                    val = new Value(100);
-                    rlpdata = val.encode();
-                    trie.update(subkey1, rlpdata);
-                    rlpdata = trie.get(subkey1);
-                    val = Value.fromRlpEncoded(rlpdata);
-                    System.out.println("cur result = "+val.asInt());
+                    trie.update(subkey1, value);
                 }
                 break;
             case '2':
@@ -152,15 +138,7 @@ public class DmgTrieImpl {
                 	for(int i = 0; i < 16; i++){
                         subkey1[i] = key[i];
                     }
-                    rlpdata = trie.get(subkey1);
-                    Value val = Value.fromRlpEncoded(rlpdata);
-                    System.out.println("pre result = "+val.asInt());
-                    val = new Value(100);
-                    rlpdata = val.encode();
-                    trie.update(subkey1, rlpdata);
-                    rlpdata = trie.get(subkey1);
-                    val = Value.fromRlpEncoded(rlpdata);
-                    System.out.println("cur result = "+val.asInt());
+                    trie.update(subkey1, value);
                 }
                 break;
             case '3':
@@ -168,15 +146,7 @@ public class DmgTrieImpl {
                 	for(int i = 0; i < 16; i++){
                         subkey1[i] = key[i];
                     }
-                    rlpdata = trie.get(subkey1);
-                    Value val = Value.fromRlpEncoded(rlpdata);
-                    System.out.println("pre result = "+val.asInt());
-                    val = new Value(100);
-                    rlpdata = val.encode();
-                    trie.update(subkey1, rlpdata);
-                    rlpdata = trie.get(subkey1);
-                    val = Value.fromRlpEncoded(rlpdata);
-                    System.out.println("cur result = "+val.asInt());
+                    trie.update(subkey1, value);
                 }
                 break;
             case '4':
@@ -202,10 +172,7 @@ public class DmgTrieImpl {
                         System.out.println("cur result = "+val.asInt());
                     }
                     else if(subkey2[0] == '0') {
-                        trie.update(subkey1, value);
-                        rlpdata = trie.get(subkey1);
-                        Value val = Value.fromRlpEncoded(rlpdata);
-                        System.out.println("cur result = "+Hex.toHexString(val.asBytes()));
+                        trie.update(subkey1, value);       
                     }
                     else {
                         System.out.println("The key is wrong.");
@@ -236,9 +203,6 @@ public class DmgTrieImpl {
                     }
                     else if(subkey2[0] == '0') {
                         trie.update(subkey1, value);
-                        rlpdata = trie.get(subkey1);
-                        Value val = Value.fromRlpEncoded(rlpdata);
-                        System.out.println("cur result = "+Hex.toHexString(val.asBytes()));
                     }
                     else {
                         System.out.println("The key is wrong.");

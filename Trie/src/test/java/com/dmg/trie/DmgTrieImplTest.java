@@ -67,116 +67,116 @@ public class DmgTrieImplTest {
     public void testEmptyKey() {
         TrieImpl trie = new TrieImpl(levelDb);
 
-        trie.update("", dog);
-        assertEquals(dog, new String(trie.get("")));
+        DmgTrieImpl.update32(trie, "", "test", dog);
+        assertEquals(dog, new String(DmgTrieImpl.get32(trie, "", "test")));
     }
 
     @Test
     public void testInsertShortString() {
         TrieImpl trie = new TrieImpl(levelDb);
 
-        trie.update(testkey1, dog);
-        assertEquals(dog, new String(trie.get(testkey1)));
+        DmgTrieImpl.update32(trie, testkey1, "test", dog);
+        assertEquals(dog, new String(DmgTrieImpl.get32(trie, testkey1, "test")));
     }
 
     @Test
     public void testInsertLongString() {
         TrieImpl trie = new TrieImpl(levelDb);
 
-        trie.update(testkey1, LONG_STRING);
-        assertEquals(LONG_STRING, new String(trie.get(testkey1)));
+        DmgTrieImpl.update32(trie, testkey1, "test", LONG_STRING);
+        assertEquals(LONG_STRING, new String(DmgTrieImpl.get32(trie, testkey1, "test")));
     }
 
     @Test
     public void testInsertMultipleItems1() {
         TrieImpl trie = new TrieImpl(levelDb);
-        trie.update(testkey1, dog);
-        assertEquals(dog, new String(trie.get(testkey1)));
+        DmgTrieImpl.update32(trie, testkey1, "test", dog);
+        assertEquals(dog, new String(DmgTrieImpl.get32(trie, testkey1, "test")));
 
-        trie.update(testkey2, cat);
-        assertEquals(cat, new String(trie.get(testkey2)));
+        DmgTrieImpl.update32(trie, testkey2, "test", cat);
+        assertEquals(cat, new String(DmgTrieImpl.get32(trie, testkey2, "test")));
 
         // Test if everything is still there
-        assertEquals(dog, new String(trie.get(testkey1)));
-        assertEquals(cat, new String(trie.get(testkey2)));
+        assertEquals(dog, new String(DmgTrieImpl.get32(trie, testkey1, "test")));
+        assertEquals(cat, new String(DmgTrieImpl.get32(trie, testkey2, "test")));
     }
 
     @Test
     public void testInsertMultipleItems2() {
         TrieImpl trie = new TrieImpl(levelDb);
 
-        trie.update(testkey1, dog);
-        assertEquals(dog, new String(trie.get(testkey1)));
+        DmgTrieImpl.update32(trie, testkey1, "test", dog);
+        assertEquals(dog, new String(DmgTrieImpl.get32(trie, testkey1, "test")));
 
-        trie.update(testkey2, cat);
-        assertEquals(cat, new String(trie.get(testkey2)));
+        DmgTrieImpl.update32(trie, testkey2, "test", cat);
+        assertEquals(cat, new String(DmgTrieImpl.get32(trie, testkey2, "test")));
 
-        trie.update(testkey3, LONG_STRING);
-        assertEquals(LONG_STRING, new String(trie.get(testkey3)));
+        DmgTrieImpl.update32(trie, testkey3, "test", LONG_STRING);
+        assertEquals(LONG_STRING, new String(DmgTrieImpl.get32(trie, testkey3, "test")));
 
 
         // Test if everything is still there
-        assertEquals(dog, new String(trie.get(testkey1)));
-        assertEquals(cat, new String(trie.get(testkey2)));
-        assertEquals(LONG_STRING, new String(trie.get(testkey3)));
+        assertEquals(dog, new String(DmgTrieImpl.get32(trie, testkey1, "test")));
+        assertEquals(cat, new String(DmgTrieImpl.get32(trie, testkey2, "test")));
+        assertEquals(LONG_STRING, new String(DmgTrieImpl.get32(trie, testkey3, "test")));
     }
 
     @Test
     public void testUpdateShortToShortString() {
         TrieImpl trie = new TrieImpl(levelDb);
 
-        trie.update(testkey1, dog);
-        assertEquals(dog, new String(trie.get(testkey1)));
+        DmgTrieImpl.update32(trie, testkey1, "test", dog);
+        assertEquals(dog, new String(DmgTrieImpl.get32(trie, testkey1, "test")));
 
-        trie.update(testkey1, dog + "1");
-        assertEquals(dog + "1", new String(trie.get(testkey1)));
+        DmgTrieImpl.update32(trie, testkey1, "test", dog + "1");
+        assertEquals(dog + "1", new String(DmgTrieImpl.get32(trie, testkey1, "test")));
     }
 
     @Test
     public void testUpdateLongToLongString() {
         TrieImpl trie = new TrieImpl(levelDb);
-        trie.update(testkey1, LONG_STRING);
-        assertEquals(LONG_STRING, new String(trie.get(testkey1)));
-        trie.update(testkey1, LONG_STRING + "1");
-        assertEquals(LONG_STRING + "1", new String(trie.get(testkey1)));
+        DmgTrieImpl.update32(trie, testkey1, "test", LONG_STRING);
+        assertEquals(LONG_STRING, new String(DmgTrieImpl.get32(trie, testkey1, "test")));
+        DmgTrieImpl.update32(trie, testkey1, "test", LONG_STRING + "1");
+        assertEquals(LONG_STRING + "1", new String(DmgTrieImpl.get32(trie, testkey1, "test")));
     }
 
     @Test
     public void testUpdateShortToLongString() {
         TrieImpl trie = new TrieImpl(levelDb);
 
-        trie.update(testkey1, dog);
-        assertEquals(dog, new String(trie.get(testkey1)));
+        DmgTrieImpl.update32(testkey1, dog);
+        assertEquals(dog, new String(DmgTrieImpl.get32(testkey1)));
 
-        trie.update(testkey1, LONG_STRING + "1");
-        assertEquals(LONG_STRING + "1", new String(trie.get(testkey1)));
+        DmgTrieImpl.update32(testkey1, LONG_STRING + "1");
+        assertEquals(LONG_STRING + "1", new String(DmgTrieImpl.get32(testkey1)));
     }
 
     @Test
-    public void testUpdateLongToShortString() {
+    public void testupdateLongToShortString() {
         TrieImpl trie = new TrieImpl(levelDb);
 
-        trie.update(testkey1, LONG_STRING);
-        assertEquals(LONG_STRING, new String(trie.get(testkey1)));
+        DmgTrieImpl.update32(trie, testkey1, "test", LONG_STRING);
+        assertEquals(LONG_STRING, new String(DmgTrieImpl.get32(trie, testkey1, "test")));
 
-        trie.update(testkey1, dog + "1");
-        assertEquals(dog + "1", new String(trie.get(testkey1)));
+        DmgTrieImpl.update32(trie, testkey1, "test", dog + "1");
+        assertEquals(dog + "1", new String(DmgTrieImpl.get32(trie, testkey1, "test")));
     }
 
     @Test
     public void testDeleteShortString1() {
         TrieImpl trie = new TrieImpl(levelDb);
 
-        trie.update(testkey1, dog);
-        assertEquals(dog, new String(trie.get(testkey1)));
+        DmgTrieImpl.update32(trie, testkey1, "test", dog);
+        assertEquals(dog, new String(DmgTrieImpl.get32(trie, testkey1, "test")));
         byte[] ROOT_HASH_BEFORE = trie.getRootHash();
 
-        trie.update(testkey2, cat);
-        assertEquals(cat, new String(trie.get(testkey2)));
+        DmgTrieImpl.update32(trie, testkey2, "test", cat);
+        assertEquals(cat, new String(DmgTrieImpl.get32(trie, testkey2, "test")));
         byte[] ROOT_HASH_AFTER = trie.getRootHash();
 
-        trie.delete(testkey2);
-        assertEquals("", new String(trie.get(testkey2)));
+        DmgTrieImpl.delete32(trie, testkey2);
+        assertEquals("", new String(DmgTrieImpl.get32(trie, testkey2, "test")));
         assertEquals(Hex.toHexString(ROOT_HASH_BEFORE), Hex.toHexString(trie.getRootHash()));
     }
 
@@ -184,15 +184,15 @@ public class DmgTrieImplTest {
     public void testDeleteLongString1() {
         TrieImpl trie = new TrieImpl(levelDb);
 
-        trie.update(testkey1, LONG_STRING);
-        assertEquals(LONG_STRING, new String(trie.get(testkey1)));
+        DmgTrieImpl.update32(trie, testkey1, "test", LONG_STRING);
+        assertEquals(LONG_STRING, new String(DmgTrieImpl.get32(trie, testkey1, "test")));
         byte[] ROOT_HASH_BEFORE = trie.getRootHash();
 
-        trie.update(testkey2, LONG_STRING);
-        assertEquals(LONG_STRING, new String(trie.get(testkey2)));
+        DmgTrieImpl.update32(trie, testkey2, "test", LONG_STRING);
+        assertEquals(LONG_STRING, new String(DmgTrieImpl.get32(trie, testkey2, "test")));
 
-        trie.delete(testkey2);
-        assertEquals("", new String(trie.get(testkey2)));
+        DmgTrieImpl.delete32(trie, testkey2);
+        assertEquals("", new String(DmgTrieImpl.get32(trie, testkey2, "field")));
         assertEquals(Hex.toHexString(ROOT_HASH_BEFORE), Hex.toHexString(trie.getRootHash()));
     }
 
@@ -204,13 +204,13 @@ public class DmgTrieImplTest {
         String val_2 = "09";
         String val_3 = "a9";
 
-        trie.update(Hex.decode(val_1), Hex.decode(val_1));
-        trie.update(Hex.decode(val_2), Hex.decode(val_2));
+        DmgTrieImpl.update32(trie, Hex.decode(val_1), "test", Hex.decode(val_1));
+        DmgTrieImpl.update32(trie, Hex.decode(val_2), "test", Hex.decode(val_2));
 
         String root1 = Hex.toHexString(trie.getRootHash());
 
-        trie.update(Hex.decode(val_3), Hex.decode(val_3));
-        trie.delete(Hex.decode(val_3));
+        DmgTrieImpl.update32(trie, Hex.decode(val_3), "test", Hex.decode(val_3));
+        DmgTrieImpl.delete32(trie, Hex.decode(val_3));
         String root1_ = Hex.toHexString(trie.getRootHash());
 
         Assert.assertEquals(root1, root1_);
@@ -221,13 +221,13 @@ public class DmgTrieImplTest {
         TrieImpl trie = new TrieImpl(levelDb);
         assertEquals(ROOT_HASH_EMPTY, Hex.toHexString(trie.getRootHash()));
 
-        trie.update(testkey1, dog);
-        trie.update(testkey2, cat);
-        trie.update(testkey3, LONG_STRING);
+        DmgTrieImpl.update32(trie, testkey1, "test", dog);
+        DmgTrieImpl.update32(trie, testkey2, "test", cat);
+        DmgTrieImpl.update32(trie, testkey3, "test", LONG_STRING);
     
-        trie.delete(testkey1);
-        trie.delete(testkey2);
-        trie.delete(testkey3);
+        DmgTrieImpl.delete32(trie, testkey1);
+        DmgTrieImpl.delete32(trie, testkey2);
+        DmgTrieImpl.delete32(trie, testkey3);
         assertEquals(ROOT_HASH_EMPTY, Hex.toHexString(trie.getRootHash()));
     }
 
@@ -236,13 +236,13 @@ public class DmgTrieImplTest {
         TrieImpl trie1 = new TrieImpl(levelDb);
         TrieImpl trie2 = new TrieImpl(levelDb);
 
-        trie1.update(testkey1, LONG_STRING);
-        trie2.update(testkey1, LONG_STRING);
+        DmgTrieImpl.update32(trie1, testkey1, "test", LONG_STRING);
+        DmgTrieImpl.update32(trie2, testkey1, "test", LONG_STRING);
         assertTrue("Expected tries to be equal", trie1.equals(trie2));
         assertEquals(Hex.toHexString(trie1.getRootHash()), Hex.toHexString(trie2.getRootHash()));
 
-        trie1.update(testkey2, LONG_STRING);
-        trie2.update(testkey3, LONG_STRING);
+        DmgTrieImpl1.update32(trie1, testkey2, "test", LONG_STRING);
+        DmgTrieImpl2.update32(trie2, testkey3, "test", LONG_STRING);
         assertFalse("Expected tries not to be equal", trie1.equals(trie2));
         assertNotEquals(Hex.toHexString(trie1.getRootHash()), Hex.toHexString(trie2.getRootHash()));
     }
@@ -251,13 +251,13 @@ public class DmgTrieImplTest {
     @Test
     public void TestTrieDirtyTracking() {
         TrieImpl trie = new TrieImpl(levelDb);
-        trie.update(testkey1, LONG_STRING);
+        DmgTrieImpl.update32(trie, testkey1, "test", LONG_STRING);
         assertTrue("Expected trie to be dirty", trie.getCache().isDirty());
 
         trie.sync();
         assertFalse("Expected trie not to be dirty", trie.getCache().isDirty());
 
-        trie.update(testkey2, LONG_STRING);
+        Dmgtrie.update32(trie, testkey2, "test", LONG_STRING);
         trie.getCache().undo();
         assertFalse("Expected trie not to be dirty", trie.getCache().isDirty());
     }
@@ -266,7 +266,7 @@ public class DmgTrieImplTest {
     public void TestTrieReset() {
         TrieImpl trie = new TrieImpl(levelDb);
 
-        trie.update(testkey1, LONG_STRING);
+        DmgTrieImpl.update32(trie, testkey1, "test", LONG_STRING);
         assertNotEquals("Expected cached nodes", 0, trie.getCache().getNodes().size());
 
         trie.getCache().undo();
@@ -277,7 +277,7 @@ public class DmgTrieImplTest {
     @Test
     public void testTrieCopy() {
         TrieImpl trie = new TrieImpl(levelDb);
-        trie.update("doe", "reindeer");
+        DmgTrieImpl.update32(trie, "doe", "test", "reindeer");
         TrieImpl trie2 = trie.copy();
         assertNotEquals(trie.hashCode(), trie2.hashCode()); // avoid possibility that its just a reference copy
         assertEquals(Hex.toHexString(trie.getRootHash()), Hex.toHexString(trie2.getRootHash()));
@@ -287,10 +287,10 @@ public class DmgTrieImplTest {
     @Test
     public void testTrieUndo() {
         TrieImpl trie = new TrieImpl(levelDb);
-        trie.update("doe", "reindeer");
+        DmgtrieImpl.update32(trie, "doe", "test", "reindeer");
         trie.sync();
         byte[] ROOT_HASH_BEFORE = trie.getRootHash();
-        trie.update("dog", "puppy");
+        DmgtrieImpl.update32(trie, "dog", "test", "puppy");
 
         trie.undo();
         assertEquals(Hex.toHexString(ROOT_HASH_BEFORE), Hex.toHexString(trie.getRootHash()));
