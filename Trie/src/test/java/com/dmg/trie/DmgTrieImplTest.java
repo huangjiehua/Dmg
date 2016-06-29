@@ -67,8 +67,8 @@ public class DmgTrieImplTest {
     public void testEmptyKey() {
         TrieImpl trie = new TrieImpl(levelDb);
 
-        DmgTrieImpl.update32(trie, "", "test", dog);
-        assertEquals(dog, new String(DmgTrieImpl.get32(trie, "", "test")));
+        DmgTrieImpl.update32(trie, testkey1, "test", dog);
+        assertEquals(dog, new String(DmgTrieImpl.get32(trie, testkey1, "test")));
     }
 
     @Test
@@ -145,11 +145,11 @@ public class DmgTrieImplTest {
     public void testUpdateShortToLongString() {
         TrieImpl trie = new TrieImpl(levelDb);
 
-        DmgTrieImpl.update32(testkey1, dog);
-        assertEquals(dog, new String(DmgTrieImpl.get32(testkey1)));
+        DmgTrieImpl.update32(trie, testkey1, "test", dog);
+        assertEquals(dog, new String(DmgTrieImpl.get32(trie, testkey1, "test")));
 
-        DmgTrieImpl.update32(testkey1, LONG_STRING + "1");
-        assertEquals(LONG_STRING + "1", new String(DmgTrieImpl.get32(testkey1)));
+        DmgTrieImpl.update32(trie, testkey1, "test", LONG_STRING + "1");
+        assertEquals(LONG_STRING + "1", new String(DmgTrieImpl.get32(trie, testkey1, "test")));
     }
 
     @Test
@@ -241,8 +241,8 @@ public class DmgTrieImplTest {
         assertTrue("Expected tries to be equal", trie1.equals(trie2));
         assertEquals(Hex.toHexString(trie1.getRootHash()), Hex.toHexString(trie2.getRootHash()));
 
-        DmgTrieImpl1.update32(trie1, testkey2, "test", LONG_STRING);
-        DmgTrieImpl2.update32(trie2, testkey3, "test", LONG_STRING);
+        DmgTrieImpl.update32(trie1, testkey2, "test", LONG_STRING);
+        DmgTrieImpl.update32(trie2, testkey3, "test", LONG_STRING);
         assertFalse("Expected tries not to be equal", trie1.equals(trie2));
         assertNotEquals(Hex.toHexString(trie1.getRootHash()), Hex.toHexString(trie2.getRootHash()));
     }
@@ -257,7 +257,7 @@ public class DmgTrieImplTest {
         trie.sync();
         assertFalse("Expected trie not to be dirty", trie.getCache().isDirty());
 
-        Dmgtrie.update32(trie, testkey2, "test", LONG_STRING);
+        DmgTrieImpl.update32(trie, testkey2, "test", LONG_STRING);
         trie.getCache().undo();
         assertFalse("Expected trie not to be dirty", trie.getCache().isDirty());
     }
@@ -287,10 +287,10 @@ public class DmgTrieImplTest {
     @Test
     public void testTrieUndo() {
         TrieImpl trie = new TrieImpl(levelDb);
-        DmgtrieImpl.update32(trie, "doe", "test", "reindeer");
+        DmgTrieImpl.update32(trie, "doe", "test", "reindeer");
         trie.sync();
         byte[] ROOT_HASH_BEFORE = trie.getRootHash();
-        DmgtrieImpl.update32(trie, "dog", "test", "puppy");
+        DmgTrieImpl.update32(trie, "dog", "test", "puppy");
 
         trie.undo();
         assertEquals(Hex.toHexString(ROOT_HASH_BEFORE), Hex.toHexString(trie.getRootHash()));

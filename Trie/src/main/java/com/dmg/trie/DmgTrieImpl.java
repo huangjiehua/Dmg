@@ -18,6 +18,7 @@ import com.dmg.util.Value;
 
 import static com.dmg.util.ByteUtil.EMPTY_BYTE_ARRAY;
 import static com.dmg.util.CompactEncoder.binToNibbles;
+import static com.dmg.crypto.HashUtil.EMPTY_TRIE_HASH;
 
 public class DmgTrieImpl {
     private static final Logger logger = LoggerFactory.getLogger("dmgtrie");
@@ -43,7 +44,6 @@ public class DmgTrieImpl {
                     }
                     return trie.get(subkey);
                 }
-                break;
             case '2':
                 {
                     for(int i = 0; i < 16; i++){
@@ -51,7 +51,6 @@ public class DmgTrieImpl {
                     }
                     return trie.get(subkey);
                 }
-                break;
             case '3':
                 {
                     for(int i = 0; i < 16; i++){
@@ -59,13 +58,12 @@ public class DmgTrieImpl {
                     }
                     return trie.get(subkey);
                 }
-                break;
             case '4':
                 {
                     for(int i = 0; i < 16; i++){
                         subkey[i] = key[i];
                     }
-                    return trie.get(subkey);
+                    Value val = Value.fromRlpEncoded(trie.get(subkey));
                     
                     for(int i = 16; i < 32;i++){
                         subkey[i-16] = key[i];
@@ -81,8 +79,8 @@ public class DmgTrieImpl {
                     else if(subkey[0] != '0'){
                         System.out.println("The key is wrong.");
                     }
+                    break;
                 }
-                break;
             case '6':
                 {
                     for(int i = 0; i < 16; i++){
@@ -104,8 +102,9 @@ public class DmgTrieImpl {
                     else if(subkey[0] != '0'){
                         System.out.println("The key is wrong");
                     }
+                    break;
                 }
-                break;
+                
             default: System.out.println("wrong key"); 
         }
         return rlpdata;
@@ -115,11 +114,11 @@ public class DmgTrieImpl {
      * Insert key/value pair into trie.
      */
     public static void update32(TrieImpl trie, String key, String field, String value) {
-        update32(trie, key.getBytes(), field, value);
+        update32(trie, key.getBytes(), field, value.getBytes());
     }
 
  
-    public static void update32(TrieImpl trie, byte[] key, String field ,String value) {
+    public static void update32(TrieImpl trie, byte[] key, String field ,byte[] value) {
         //byte[] k = binToNibbles(key);
         byte[] subkey1 = new byte[16];
         byte[] subkey2 = new byte[16];
@@ -131,24 +130,24 @@ public class DmgTrieImpl {
                         subkey1[i] = key[i];
                     }
                     trie.update(subkey1, value);
+                    break;
                 }
-                break;
             case '2':
                 {
                 	for(int i = 0; i < 16; i++){
                         subkey1[i] = key[i];
                     }
                     trie.update(subkey1, value);
+                    break;
                 }
-                break;
             case '3':
                 {
                 	for(int i = 0; i < 16; i++){
                         subkey1[i] = key[i];
                     }
                     trie.update(subkey1, value);
+                    break;
                 }
-                break;
             case '4':
                 {
                 	for(int i = 0; i < 16; i++){
@@ -177,8 +176,9 @@ public class DmgTrieImpl {
                     else {
                         System.out.println("The key is wrong.");
                     }
+                    break;
                 }
-                break;
+                
             case '6':
                 {
                 	for(int i = 0; i < 16; i++){
@@ -207,8 +207,9 @@ public class DmgTrieImpl {
                     else {
                         System.out.println("The key is wrong.");
                     }
+                    break;
                 }
-                break;
+                
             default: System.out.println("wrong key"); 
         }
     }
