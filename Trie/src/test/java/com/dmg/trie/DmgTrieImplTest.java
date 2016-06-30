@@ -44,6 +44,8 @@ public class DmgTrieImplTest {
     private static String testkey5 = "40000000000000015000000000000001";
     private static String testkey6 = "60000000000000010000000000000000";
     private static String testkey7 = "60000000000000017000000000000001";
+    private static String testkey8 = "5000000000000001";
+    private static String testkey9 = "7000000000000001";
 
     private static String dog = "dog";
     private static String cat = "cat";
@@ -294,5 +296,62 @@ public class DmgTrieImplTest {
 
         trie.undo();
         assertEquals(Hex.toHexString(ROOT_HASH_BEFORE), Hex.toHexString(trie.getRootHash()));
+    }
+
+    @Test
+    public void TestTrieRootCopy() {
+        //store root as rlpdata, and then use it for building trie.
+        TrieImpl trie = new TrieImpl(levelDb);
+        trie.update(testkey1, dog);
+        Value val = new Value(trie.getRoot());
+        trie.update(testkey2.getBytes(), val.encode());
+        //trie.sync();
+        Value val1 = Value.fromRlpEncoded(trie.get(testkey2));
+        TrieImpl trie1 = new TrieImpl(levelDb, val1.asObj());
+        trie1.setCache(trie.getCache());
+        assertEquals(dog, new String(trie1.get(testkey1)));
+    }
+
+    @Test
+    public void TestSubTrie1() {
+        TrieImpl subtrie = new TrieImpl(levelDb);
+        subtrie.update(testkey8, dog);
+        Value val = new Value(subtrie.getRoot());
+        TrieImpl trie = new TrieImpl(levelDb);
+        DmgTrieImpl.update32(trie, testkey4.getBytes(), "test", val.encode());
+        assertEquals(dog, new String(DmgTrieImpl.get32(trie, testkey5, "test")));
+    }
+
+    @Test
+    public void TestSubTrie2() {
+        TrieImpl subtrie = new TrieImpl(levelDb);
+        subtrie.update(testkey9, dog);
+        Value val = new Value(subtrie.getRoot());
+        TrieImpl trie = new TrieImpl(levelDb);
+        DmgTrieImpl.update32(trie, testkey6.getBytes(), "test", val.encode());
+        assertEquals(dog, new String(DmgTrieImpl.get32(trie, testkey7, "test")));
+    }
+    
+    @Test
+    public void TestSubTrie1_update() {
+        TrieImpl subtrie = new TrieImpl(levelDb);
+        subtrie.update(testkey8, dog);
+        Value val = new Value(subtrie.getRoot());
+        TrieImpl trie = new TrieImpl(levelDb);
+        DmgTrieImpl.update32(trie, testkey4.getBytes(), "test", val.encode());
+        assertEquals(dog, new String(DmgTrieImpl.get32(trie, testkey5, "test")));
+        DmgTrieImpl.update32(trie, testkey5, "test", cat);
+        assertEquals(cat, new String(DmgTrieImpl.get32(trie, testkey5, "test")));
+    }
+    @Test
+    public void TestSubTrie2_update() {
+        TrieImpl subtrie = new TrieImpl(levelDb);
+        subtrie.update(testkey9, dog);
+        Value val = new Value(subtrie.getRoot());
+        TrieImpl trie = new TrieImpl(levelDb);
+        DmgTrieImpl.update32(trie, testkey6.getBytes(), "test", val.encode());
+        assertEquals(dog, new String(DmgTrieImpl.get32(trie, testkey7, "test")));
+        DmgTrieImpl.update32(trie, testkey7, "test", cat);
+        assertEquals(cat, new String(DmgTrieImpl.get32(trie, testkey7, "test")));
     }
 }

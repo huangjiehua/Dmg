@@ -70,11 +70,9 @@ public class DmgTrieImpl {
                     }
                     if (subkey[0] == '5') {
                         KeyValueDataSource levelDb = new LevelDbDataSource("triedb");
-                        //levelDb.init();
-                        Trie subtrie = new TrieImpl(levelDb, val.asObj());
+                        TrieImpl subtrie = new TrieImpl(levelDb, val.asObj());
+                        subtrie.setCache(trie.getCache());
                         rlpdata = subtrie.get(subkey);
-                        Value val1 = Value.fromRlpEncoded(rlpdata);
-                        System.out.println("result = "+val1.asInt());
                     }
                     else if(subkey[0] != '0'){
                         System.out.println("The key is wrong.");
@@ -86,18 +84,16 @@ public class DmgTrieImpl {
                     for(int i = 0; i < 16; i++){
                         subkey[i] = key[i];
                     }
-                    return trie.get(subkey);
-                
+                    Value val = Value.fromRlpEncoded(trie.get(subkey));
+                   
                     for(int i = 16; i < 32;i++){
                         subkey[i-16] = key[i];
                     }
                     if (subkey[0] == '7') {
                     	KeyValueDataSource levelDb = new LevelDbDataSource("triedb");
-                        //levelDb.init();
-                        Trie subtrie = new TrieImpl(levelDb, val.asObj());
+                        TrieImpl subtrie = new TrieImpl(levelDb, val.asObj());
+                        subtrie.setCache(trie.getCache());
                         rlpdata = subtrie.get(subkey);
-                        Value val1 = Value.fromRlpEncoded(rlpdata);
-                        System.out.println("result = "+val1.asInt());
                     }
                     else if(subkey[0] != '0'){
                         System.out.println("The key is wrong");
@@ -162,13 +158,11 @@ public class DmgTrieImpl {
                         Value val = Value.fromRlpEncoded(rlpdata);
                         KeyValueDataSource levelDb = new LevelDbDataSource("triedb");
                         TrieImpl subtrie = new TrieImpl(levelDb, val.asObj());
+                        subtrie.setCache(trie.getCache());
                         subtrie.update(subkey2, value);
                         val = new Value(subtrie.getRoot());
                         rlpdata = val.encode();
                         trie.update(subkey1, rlpdata);
-                        rlpdata = subtrie.get(subkey2);
-                        val = Value.fromRlpEncoded(rlpdata);
-                        System.out.println("cur result = "+val.asInt());
                     }
                     else if(subkey2[0] == '0') {
                         trie.update(subkey1, value);       
@@ -193,16 +187,14 @@ public class DmgTrieImpl {
                         Value val = Value.fromRlpEncoded(rlpdata);
                         KeyValueDataSource levelDb = new LevelDbDataSource("triedb");
                         TrieImpl subtrie = new TrieImpl(levelDb, val.asObj());
+                        subtrie.setCache(trie.getCache());
                         subtrie.update(subkey2, value);
                         val = new Value(subtrie.getRoot());
                         rlpdata = val.encode();
                         trie.update(subkey1, rlpdata);
-                        rlpdata = subtrie.get(subkey2);
-                        val = Value.fromRlpEncoded(rlpdata);
-                        System.out.println("cur result = "+val.asInt());
                     }
                     else if(subkey2[0] == '0') {
-                        trie.update(subkey1, value);
+                        trie.update(subkey1, value);       
                     }
                     else {
                         System.out.println("The key is wrong.");
