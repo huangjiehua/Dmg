@@ -365,4 +365,29 @@ public class DmgTrieImplTest {
         DmgTrieImpl.update32(trie, testkey5, "test", dog);
         assertEquals(dog, new String(DmgTrieImpl.get32(trie, testkey5, "test")));
     }
+
+   /* @Test
+    public void TestObjectStorage() {
+        TrieImpl trie = new TrieImpl(levelDb);
+        UserNode  n = new UserNode(testkey1, dog, 0, 0, 0, 0, 0, 0);
+        List<Object> no = new ArrayList<Object>();
+        no.add(0, n.getUid());
+        no.add(1, n.getAddress());
+        Value val = new Value(no);
+        trie.update(testkey1.getBytes(), val.encode());
+    }*/
+
+    @Test
+    public void TestRootHash() {
+        TrieImpl trie = new TrieImpl(levelDb);
+        //trie.update(testkey1, dog);
+        byte[] hash1 = trie.getRootHash();
+        DmgTrieImpl.update32(trie, testkey1, "test", dog);
+        assertFalse("Expected trie not to be dirty", trie.getCache().isDirty());
+        //trie.sync();
+        byte[] hash2 = trie.getRootHash();
+        assertNotEquals(hash1, hash2);
+       // levelDb.get(trie.getRootHash());
+
+    }
 }
