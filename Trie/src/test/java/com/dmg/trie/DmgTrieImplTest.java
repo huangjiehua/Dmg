@@ -343,6 +343,7 @@ public class DmgTrieImplTest {
         DmgTrieImpl.update32(trie, testkey5, "test", cat);
         assertEquals(cat, new String(DmgTrieImpl.get32(trie, testkey5, "test")));
     }
+
     @Test
     public void TestSubTrie2_update() {
         TrieImpl subtrie = new TrieImpl(levelDb);
@@ -353,5 +354,15 @@ public class DmgTrieImplTest {
         assertEquals(dog, new String(DmgTrieImpl.get32(trie, testkey7, "test")));
         DmgTrieImpl.update32(trie, testkey7, "test", cat);
         assertEquals(cat, new String(DmgTrieImpl.get32(trie, testkey7, "test")));
+    }
+
+    @Test
+    public void NewProject() {
+        TrieImpl subtrie = new TrieImpl(levelDb);
+        Value val = new Value(subtrie.getRoot());
+        TrieImpl trie = new TrieImpl(levelDb);
+        DmgTrieImpl.update32(trie, testkey4.getBytes(), "test", val.encode());
+        DmgTrieImpl.update32(trie, testkey5, "test", dog);
+        assertEquals(dog, new String(DmgTrieImpl.get32(trie, testkey5, "test")));
     }
 }

@@ -1,25 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="com.dmg.trie.DmgTrieImplTest" tests="18" skipped="1" failures="0" errors="0" timestamp="2016-06-29T14:06:15" hostname="jiehua-node1" time="0.051">
+<testsuite name="com.dmg.trie.DmgTrieImplTest" tests="24" skipped="1" failures="0" errors="0" timestamp="2016-06-30T01:42:58" hostname="jiehua-node1" time="0.085">
   <properties/>
-  <testcase name="testTrieEquals" classname="com.dmg.trie.DmgTrieImplTest" time="0.014"/>
+  <testcase name="TestTrieRootCopy" classname="com.dmg.trie.DmgTrieImplTest" time="0.013"/>
+  <testcase name="testTrieEquals" classname="com.dmg.trie.DmgTrieImplTest" time="0.005"/>
   <testcase name="testTrieCopy" classname="com.dmg.trie.DmgTrieImplTest" time="0.001"/>
-  <testcase name="testTrieUndo" classname="com.dmg.trie.DmgTrieImplTest" time="0.001"/>
+  <testcase name="testTrieUndo" classname="com.dmg.trie.DmgTrieImplTest" time="0.005"/>
+  <testcase name="NewProject" classname="com.dmg.trie.DmgTrieImplTest" time="0.002"/>
   <testcase name="testUpdateLongToLongString" classname="com.dmg.trie.DmgTrieImplTest" time="0.002"/>
   <testcase name="testInsertLongString" classname="com.dmg.trie.DmgTrieImplTest" time="0.001"/>
-  <testcase name="testDeleteLongString1" classname="com.dmg.trie.DmgTrieImplTest" time="0.003"/>
+  <testcase name="testDeleteLongString1" classname="com.dmg.trie.DmgTrieImplTest" time="0.002"/>
+  <testcase name="TestSubTrie1" classname="com.dmg.trie.DmgTrieImplTest" time="0.001"/>
+  <testcase name="TestSubTrie2" classname="com.dmg.trie.DmgTrieImplTest" time="0.002"/>
   <testcase name="TestTrieDirtyTracking" classname="com.dmg.trie.DmgTrieImplTest" time="0.0">
     <skipped/>
   </testcase>
-  <testcase name="testUpdateShortToShortString" classname="com.dmg.trie.DmgTrieImplTest" time="0.002"/>
-  <testcase name="testDeleteCompletellyDiferentItems" classname="com.dmg.trie.DmgTrieImplTest" time="0.001"/>
-  <testcase name="testupdateLongToShortString" classname="com.dmg.trie.DmgTrieImplTest" time="0.002"/>
-  <testcase name="testUpdateShortToLongString" classname="com.dmg.trie.DmgTrieImplTest" time="0.001"/>
+  <testcase name="testUpdateShortToShortString" classname="com.dmg.trie.DmgTrieImplTest" time="0.001"/>
+  <testcase name="testDeleteCompletellyDiferentItems" classname="com.dmg.trie.DmgTrieImplTest" time="0.003"/>
+  <testcase name="testupdateLongToShortString" classname="com.dmg.trie.DmgTrieImplTest" time="0.004"/>
+  <testcase name="TestSubTrie1_update" classname="com.dmg.trie.DmgTrieImplTest" time="0.005"/>
+  <testcase name="testUpdateShortToLongString" classname="com.dmg.trie.DmgTrieImplTest" time="0.003"/>
   <testcase name="testDeleteAll" classname="com.dmg.trie.DmgTrieImplTest" time="0.004"/>
-  <testcase name="TestTrieReset" classname="com.dmg.trie.DmgTrieImplTest" time="0.002"/>
-  <testcase name="testDeleteShortString1" classname="com.dmg.trie.DmgTrieImplTest" time="0.002"/>
-  <testcase name="testInsertMultipleItems1" classname="com.dmg.trie.DmgTrieImplTest" time="0.002"/>
+  <testcase name="TestTrieReset" classname="com.dmg.trie.DmgTrieImplTest" time="0.001"/>
+  <testcase name="testDeleteShortString1" classname="com.dmg.trie.DmgTrieImplTest" time="0.005"/>
+  <testcase name="testInsertMultipleItems1" classname="com.dmg.trie.DmgTrieImplTest" time="0.005"/>
   <testcase name="testInsertMultipleItems2" classname="com.dmg.trie.DmgTrieImplTest" time="0.002"/>
   <testcase name="testInsertShortString" classname="com.dmg.trie.DmgTrieImplTest" time="0.001"/>
+  <testcase name="TestSubTrie2_update" classname="com.dmg.trie.DmgTrieImplTest" time="0.002"/>
   <testcase name="testEmptyKey" classname="com.dmg.trie.DmgTrieImplTest" time="0.001"/>
   <system-out><![CDATA[wrong key
 wrong key
