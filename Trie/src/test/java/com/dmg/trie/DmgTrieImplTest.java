@@ -377,7 +377,7 @@ public class DmgTrieImplTest {
         trie.update(testkey1.getBytes(), val.encode());
     }*/
 
-    @Test
+   /* @Test
     public void TestRootHash() {
         TrieImpl trie = new TrieImpl(levelDb);
         //trie.update(testkey1, dog);
@@ -389,5 +389,14 @@ public class DmgTrieImplTest {
         assertNotEquals(hash1, hash2);
        // levelDb.get(trie.getRootHash());
 
+    }*/
+
+    @Test
+    public void TestDelete1() {
+        TrieImpl trie = new TrieImpl(levelDb);
+        DmgTrieImpl.update32(trie, testkey1, "test", dog);
+        assertEquals(dog, new String(DmgTrieImpl.get32(trie, testkey1, "test")));
+        DmgTrieImpl.delete32(trie, testkey1);
+        assertNotEquals(dog, new String(DmgTrieImpl.get32(trie, testkey1, "test")));
     }
 }
