@@ -26,7 +26,7 @@ import static com.dmg.crypto.HashUtil.EMPTY_TRIE_HASH;
 
 public class DmgTrieImpl {
     private static final Logger logger = LoggerFactory.getLogger("dmgtrie");
-    private HashMapDB mockDb = new HashMapDB("triedb");
+    private static HashMapDB mockDb = new HashMapDB();
     
     /**
      * Retrieve a value from a key as String, and 32 means the length of key.
@@ -197,7 +197,7 @@ public class DmgTrieImpl {
                         }
                         if (subkey[0] == '5') {
                             JSONObject jo = JSONObject.fromObject(new String(rlpdata));
-                            Value val = Value.fromRlpEncoded(jo.getString("root").getBytes());
+                            Value val = Value.fromRlpEncoded((jo.getString("root")).getBytes());
                             TrieImpl subtrie = new TrieImpl(mockDb, val.asObj());
                             subtrie.setCache(trie.getCache());
                             rlpdata = subtrie.get(subkey);
@@ -205,9 +205,8 @@ public class DmgTrieImpl {
                         else if(subkey[0] != '0'){
                             System.out.println("The key is wrong.");
                         }
-                        return rlpdata;
-                        break;
                     }
+                    return rlpdata;
                 }
             case '6':
                 {
@@ -229,13 +228,12 @@ public class DmgTrieImpl {
                         else if(subkey[0] != '0'){
                             System.out.println("The key is wrong.");
                         }
-                        return rlpdata;
-                        break;
                     }
+                    return rlpdata;
                 }
-                
             default: System.out.println("wrong key"); 
         }
+        return "".getBytes();
     }
 
     /**
@@ -250,78 +248,71 @@ public class DmgTrieImpl {
         //byte[] k = binToNibbles(key);
         byte[] subkey1 = new byte[16];
         byte[] subkey2 = new byte[16];
-        byte[] rlpdata ;
+        byte[] rlpdata;
+        byte[] rlpdata1;
         switch(key[0]) {
             case '1':
                 {
                     for(int i = 0; i < 16; i++){
                         subkey1[i] = key[i];
                     }
-                    rlpdata = trie.update(subkey1, value);
-                    if(new String(rlpdata)==""){
-                        return rlpdata;
+                    rlpdata = trie.get(subkey1);
+                    if(new String(rlpdata)!=""){
+                        JSONObject jo = JSONObject.fromObject(new String(rlpdata));
+                        jo = JSONObject.fromObject(new String(rlpdata));
+                        Map<String, String> map = new HashMap<String, String>();
+                        map.put("uid", jo.getString("uid"));
+                        map.put("address", jo.getString("address"));
+                        map.put("total", jo.getString("total"));
+                        map.put("available", jo.getString("available"));
+                        map.put("freeze", jo.getString("freeze"));
+                        map.put("total_invest", jo.getString("total_invest"));
+                        map.put("status", jo.getString("status"));
+                        map.put("experience", jo.getString("experience"));
+                        map.put(field, new String(value));
+                        jo = JSONObject.fromObject(map);
+                        trie.update(subkey1, jo.toString().getBytes());    
+                        break;
                     }
-                    JSONObject jo = JSONObject.fromObject(new String(rlpdata));
-                    jo = JSONObject.fromObject(new String(rlpdata));
-                    Map<String, String> map = new HashMap<String, String>();
-                    p.put("uid", jo.getString("uid"));
-                    map.put("address", jo.getString("address"));
-                    map.put("total", jo.getString("total"));
-                    map.put("available", jo.getString("available"));
-                    map.put("freeze", jo.getString("freeze"));
-                    map.put("total_invest", jo.getString("total_invest"));
-                    map.put("status", jo.getString("status"));
-                    map.put("experience", jo.getString("experience"));
-                    map.put(field, jo.getString(field));
-                    jo = JSONObject.fromObject(map);
-                    trie.update(subkey1, jo.toString().getBytes());    
-                    break;
                 }
             case '2':
                 {
                     for(int i = 0; i < 16; i++){
                         subkey1[i] = key[i];
                     }
-                    rlpdata = trie.update(subkey1, value);
-                    if(new String(rlpdata)==""){
-                        return rlpdata;
+                    rlpdata = trie.get(subkey1);
+                    if(new String(rlpdata)!=""){
+                        JSONObject jo = JSONObject.fromObject(new String(rlpdata));
+                        jo = JSONObject.fromObject(new String(rlpdata));
+                        Map<String, String> map = new HashMap<String, String>();
+                        map.put("uid", jo.getString("uid"));
+                        map.put("address", jo.getString("address"));
+                        map.put("reputation", jo.getString("reputation"));
+                        map.put("status", jo.getString("status"));
+                        map.put(field, new String(value));
+                        jo = JSONObject.fromObject(map);
+                        trie.update(subkey1, jo.toString().getBytes());    
+                        break;
                     }
-                    JSONObject jo = JSONObject.fromObject(new String(rlpdata));
-                    jo = JSONObject.fromObject(new String(rlpdata));
-                    Map<String, String> map = new HashMap<String, String>();
-                    p.put("uid", jo.getString("uid"));
-                    map.put("address", jo.getString("address"));
-                    map.put("reputation", jo.getString("reputation"));
-                    map.put("status", jo.getString("status"));
-                    map.put(field, jo.getString(field));
-                    jo = JSONObject.fromObject(map);
-                    trie.update(subkey1, jo.toString().getBytes());    
-                    break;
                 }
             case '3':
                 {
                     for(int i = 0; i < 16; i++){
                         subkey1[i] = key[i];
                     }
-                    rlpdata = trie.update(subkey1, value);
-                    if(new String(rlpdata)==""){
-                        return rlpdata;
+                    rlpdata = trie.get(subkey1);
+                    if(new String(rlpdata)!=""){
+                        JSONObject jo = JSONObject.fromObject(new String(rlpdata));
+                        jo = JSONObject.fromObject(new String(rlpdata));
+                        Map<String, String> map = new HashMap<String, String>();
+                        map.put("uid", jo.getString("uid"));
+                        map.put("address", jo.getString("address"));
+                        map.put("username", jo.getString("username"));
+                        map.put(field, new String(value));
+                        jo = JSONObject.fromObject(map);
+                        trie.update(subkey1, jo.toString().getBytes());    
+                        break;
                     }
-                    JSONObject jo = JSONObject.fromObject(new String(rlpdata));
-                    jo = JSONObject.fromObject(new String(rlpdata));
-                    Map<String, String> map = new HashMap<String, String>();
-                    p.put("uid", jo.getString("uid"));
-                    map.put("address", jo.getString("address"));
-                    map.put("username", jo.getString("username"));
-                    map.put(field, jo.getString(field));
-                    jo = JSONObject.fromObject(map);
-                    trie.update(subkey1, jo.toString().getBytes());    
-                    break;
-                	for(int i = 0; i < 16; i++){
-                        subkey1[i] = key[i];
-                    }
-                    trie.update(subkey1, value);
-                    break;
                 }
             case '4':
                 {
@@ -338,34 +329,37 @@ public class DmgTrieImpl {
                             Value val = Value.fromRlpEncoded(jo.getString("root").getBytes());
                             TrieImpl subtrie = new TrieImpl(mockDb, val.asObj());
                             subtrie.setCache(trie.getCache());
-                            rlpdata = subtrie.get(subkey);
-                            if(new String(rlpdata)==""){
-                                return rlpdata;
-                            }
-                            jo = JSONObject.fromObject(new String(rlpdata));
-                            Map<String, String> map = new HashMap<String, String>();
-                            map.put("storage", jo.getString("storage"));
-                            map.put("code", jo.getString("code"));
-                            map.put(field, jo.getString(field));
-                            jo = JSONObject.fromObject(map);
-                            subtrie.update(subkey2, jo.toString().getBytes());
+                            rlpdata1 = subtrie.get(subkey2);
+                            if(new String(rlpdata)!=""){
+                                jo = JSONObject.fromObject(new String(rlpdata1));
+                                Map<String, String> map = new HashMap<String, String>();
+                                map.put("storage", jo.getString("storage"));
+                                map.put("code", jo.getString("code"));
+                                map.put(field, new String(value));
+                                jo = JSONObject.fromObject(map);
+                                subtrie.update(subkey2, jo.toString().getBytes());
+                                val = new Value(subtrie.getRoot());
+                                jo = JSONObject.fromObject(new String(rlpdata));
+                                map = new HashMap<String, String>();
+                                map.put("root", new String(val.encode()));
+                                map.put("storage", jo.getString("storage"));
+                                map.put("code", jo.getString("code"));
+                                jo = JSONObject.fromObject(map);
+                                trie.update(subkey1, jo.toString().getBytes());    
 
-                            
+                            }
                         }
                         else if(subkey2[0] == '0'){
-                            if(new String(rlpdata)==""){
-                                return rlpdata;
+                            if(new String(rlpdata)!=""){
+                                JSONObject jo = JSONObject.fromObject(new String(rlpdata));
+                                Map<String, String> map = new HashMap<String, String>();
+                                map.put("root", jo.getString("root"));
+                                map.put("storage", jo.getString("storage"));
+                                map.put("code", jo.getString("code"));
+                                map.put(field, new String(value));
+                                jo = JSONObject.fromObject(map);
+                                trie.update(subkey1, jo.toString().getBytes());    
                             }
-                            JSONObject jo = JSONObject.fromObject(new String(rlpdata));
-                            jo = JSONObject.fromObject(new String(rlpdata));
-                            Map<String, String> map = new HashMap<String, String>();
-                            map.put("root", jo.getString("root"));
-                            map.put("storage", jo.getString("storage"));
-                            map.put("code", jo.getString("code"));
-                            map.put(field, jo.getString(field));
-                            jo = JSONObject.fromObject(map);
-                            trie.update(subkey1, jo.toString().getBytes());    
-                
                         }
                         System.out.println("The key is wrong.");
                         break;
@@ -388,37 +382,38 @@ public class DmgTrieImpl {
                             Value val = Value.fromRlpEncoded(jo.getString("root").getBytes());
                             TrieImpl subtrie = new TrieImpl(mockDb, val.asObj());
                             subtrie.setCache(trie.getCache());
-                            rlpdata = subtrie.get(subkey);
-                            if(new String(rlpdata)==""){
-                                return rlpdata;
+                            rlpdata1 = subtrie.get(subkey2);
+                            if(new String(rlpdata)!=""){
+                                jo = JSONObject.fromObject(new String(rlpdata1));
+                                Map<String, String> map = new HashMap<String, String>();
+                                map.put("storage", jo.getString("storage"));
+                                map.put(field, new String(value));
+                                jo = JSONObject.fromObject(map);
+                                subtrie.update(subkey2, jo.toString().getBytes());
+                                val = new Value(subtrie.getRoot());
+                                jo = JSONObject.fromObject(new String(rlpdata));
+                                map = new HashMap<String, String>();
+                                map.put("root", new String(val.encode()));
+                                map.put("storage", jo.getString("storage"));
+                                jo = JSONObject.fromObject(map);
+                                trie.update(subkey1, jo.toString().getBytes());    
                             }
-                            jo = JSONObject.fromObject(new String(rlpdata));
-                            Map<String, String> map = new HashMap<String, String>();
-                            map.put("storage", jo.getString("storage"));
-                            map.put(field, jo.getString(field));
-                            jo = JSONObject.fromObject(map);
-                            subtrie.update(subkey2, jo.toString().getBytes());
-
-                            
                         }
                         else if(subkey2[0] == '0'){
-                            if(new String(rlpdata)==""){
-                                return rlpdata;
+                            if(new String(rlpdata)!=""){
+                                JSONObject jo = JSONObject.fromObject(new String(rlpdata));
+                                Map<String, String> map = new HashMap<String, String>();
+                                map.put("root", jo.getString("root"));
+                                map.put("storage", jo.getString("storage"));
+                                map.put(field, new String(value));
+                                jo = JSONObject.fromObject(map);
+                                trie.update(subkey1, jo.toString().getBytes());    
                             }
-                            JSONObject jo = JSONObject.fromObject(new String(rlpdata));
-                            jo = JSONObject.fromObject(new String(rlpdata));
-                            Map<String, String> map = new HashMap<String, String>();
-                            map.put("root", jo.getString("root"));
-                            map.put("storage", jo.getString("storage"));
-                            map.put(field, jo.getString(field));
-                            jo = JSONObject.fromObject(map);
-                            trie.update(subkey1, jo.toString().getBytes());    
-                
                         }
                         System.out.println("The key is wrong.");
                         break;
 
-                    }    
+                    }
                 }
                 
             default: System.out.println("wrong key"); 
