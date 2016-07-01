@@ -9,6 +9,7 @@ package com.dmg.trie;
 
 import com.dmg.datasource.KeyValueDataSource;
 import com.dmg.datasource.LevelDbDataSource;
+import com.dmg.datasource.HashMapDB;
 import com.dmg.util.*;
 import org.junit.After;
 import org.junit.Assert;
@@ -17,6 +18,8 @@ import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.spongycastle.util.encoders.Hex;
+import net.sf.json.JSONArray;
+import net.sf.json.JSONObject;
 
 import java.io.File;
 import java.io.IOException;
@@ -29,6 +32,7 @@ import java.util.*;
 
 import static com.dmg.crypto.HashUtil.EMPTY_TRIE_HASH;
 import static org.junit.Assert.*;
+import static com.dmg.util.ByteUtil.wrap;
 
 public class DmgTrieImplTest {
 
@@ -52,6 +56,7 @@ public class DmgTrieImplTest {
     private static String test = "test";
 
     private KeyValueDataSource levelDb = new LevelDbDataSource("triedb");
+    private HashMapDB mockDb = new HashMapDB();
 //      A: [ '', '', '', '', B, '', '', '', C, '', '', '', '', '', '', '', '' ]
 //      B: [ '\x00\x6f', D ]
 //      D: [ '', '', '', '', '', '', E, '', '', '', '', '', '', '', '', '', 'verb' ]
@@ -249,10 +254,9 @@ public class DmgTrieImplTest {
         assertNotEquals(Hex.toHexString(trie1.getRootHash()), Hex.toHexString(trie2.getRootHash()));
     }
 
-    @Ignore
     @Test
     public void TestTrieDirtyTracking() {
-        TrieImpl trie = new TrieImpl(levelDb);
+        TrieImpl trie = new TrieImpl(mockDb);
         DmgTrieImpl.update32(trie, testkey1, "test", LONG_STRING);
         assertTrue("Expected trie to be dirty", trie.getCache().isDirty());
 
@@ -301,14 +305,14 @@ public class DmgTrieImplTest {
     @Test
     public void TestTrieRootCopy() {
         //store root as rlpdata, and then use it for building trie.
-        TrieImpl trie = new TrieImpl(levelDb);
+        TrieImpl trie = new TrieImpl(mockDb);
         trie.update(testkey1, dog);
         Value val = new Value(trie.getRoot());
         trie.update(testkey2.getBytes(), val.encode());
-        //trie.sync();
+        trie.sync();
         Value val1 = Value.fromRlpEncoded(trie.get(testkey2));
-        TrieImpl trie1 = new TrieImpl(levelDb, val1.asObj());
-        trie1.setCache(trie.getCache());
+        TrieImpl trie1 = new TrieImpl(mockDb, val1.asObj());
+        //trie1.setCache(trie.getCache());
         assertEquals(dog, new String(trie1.get(testkey1)));
     }
 
@@ -377,20 +381,6 @@ public class DmgTrieImplTest {
         trie.update(testkey1.getBytes(), val.encode());
     }*/
 
-   /* @Test
-    public void TestRootHash() {
-        TrieImpl trie = new TrieImpl(levelDb);
-        //trie.update(testkey1, dog);
-        byte[] hash1 = trie.getRootHash();
-        DmgTrieImpl.update32(trie, testkey1, "test", dog);
-        assertFalse("Expected trie not to be dirty", trie.getCache().isDirty());
-        //trie.sync();
-        byte[] hash2 = trie.getRootHash();
-        assertNotEquals(hash1, hash2);
-       // levelDb.get(trie.getRootHash());
-
-    }*/
-
     @Test
     public void TestDelete1() {
         TrieImpl trie = new TrieImpl(levelDb);
@@ -399,4 +389,18 @@ public class DmgTrieImplTest {
         DmgTrieImpl.delete32(trie, testkey1);
         assertNotEquals(dog, new String(DmgTrieImpl.get32(trie, testkey1, "test")));
     }
+
+    @Ignore
+    @Test
+    public void testGetFromRootNode() {
+        TrieImpl trie1 = new TrieImpl(mockDb);
+        trie1.update(cat, dog);
+        trie1.sync();
+        Value val = Value.fromRlpEncoded(mockDb.get(trie1.getRootHash()));
+        TrieImpl trie2 = new TrieImpl(mockDb, val.asObj());
+        //TrieImpl trie2 = new TrieImpl(mockDb, mockDb.get((wrap(trie1.getRootHash())).getData()));
+        assertEquals(dog, new String(trie2.get(cat)));
+    }
+
+    
 }

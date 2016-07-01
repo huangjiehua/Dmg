@@ -20,8 +20,8 @@ public class Main {
 		myTrie.update("0x010x010x02".getBytes(), "HelloWorld".getBytes());
 		
 		myTrie.sync();
-		System.out.println(myTrie.getRootHash().toString());
-		System.out.println(levelDb.get("a5fc59427869fca71397f6a1b153465b14ad12b4f9f9956b283fad42731c3f92".getBytes()));
+
+		System.out.println(levelDb.get(myTrie.getRootHash()));
 		levelDb.close();
 	}
 
