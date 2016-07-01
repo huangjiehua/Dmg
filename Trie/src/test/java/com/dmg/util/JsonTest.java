@@ -6,6 +6,7 @@
  ************************************************************************/
 package com.dmg.util;
 
+import com.dmg.trie.*;
 import com.dmg.datasource.KeyValueDataSource;
 import com.dmg.datasource.LevelDbDataSource;
 import com.dmg.datasource.HashMapDB;
@@ -36,23 +37,29 @@ import static com.dmg.util.ByteUtil.wrap;
 public class JsonTest{
 
     @Test
-    public void TestJson() { 
-        UserNode  n = new UserNode(testkey1, dog, 0, 0, 0, 0, 0, 0);
+    public void TestJsonMap() { 
         // JSON格式数据解析对象
-        JSONObject jo = new JSONObject();
         Map<String, String> map1 = new HashMap<String, String>();
         map1.put("name", "Alexia");
         map1.put("sex", "female");
         map1.put("age", "23");
     
         // 将Map转换为JSONArray数据
-        JSONArray ja1 = JSONArray.fromObject(map1);
-        jo.put("map", ja1);
-        JSONArray ja = jb.getJSONArray("map");
-        for (int i = 0; i < ja.size(); i++) {
-            assertEquals("Alexia", ja.getJSONObject(i).getString("name"));
-            assertEquals("female", ja.getJSONObject(i).getString("sex"));
-            assertEquals("23", ja.getJSONObject(i).getString("age"));
-        }
+        JSONObject ja = JSONObject.fromObject(map1);
+        JSONObject jb = JSONObject.fromObject(ja.toString());
+        assertEquals("Alexia", jb.getString("name"));
+        assertEquals("female", jb.getString("sex"));
+        assertEquals("23", jb.getString("age"));
+    }
+
+    @Ignore
+    @Test
+    public void TetsJsonObject() {
+        UserNode  n = new UserNode("0001", "dog", 0, 0, 0, 0, 0, 0);
+        JSONObject jsonObject1 = JSONObject.fromObject(n);  
+        JSONObject jsonObject2 = JSONObject.fromObject(jsonObject1.toString());  
+        Object usernode = JSONObject.toBean( jsonObject1  );  
+        assertEquals( jsonObject2.get( "_uid"  ), n.getUid());  
+        assertEquals( jsonObject2.get( "_address"  ), n.getAddress());  
     }
 }

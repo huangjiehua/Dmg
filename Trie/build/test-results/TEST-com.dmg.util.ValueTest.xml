@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="com.dmg.util.ValueTest" tests="3" skipped="0" failures="0" errors="0" timestamp="2016-07-01T01:01:42" hostname="jiehua-node1" time="0.011">
+<testsuite name="com.dmg.util.ValueTest" tests="3" skipped="0" failures="0" errors="0" timestamp="2016-07-01T07:09:07" hostname="jiehua-node1" time="0.014">
   <properties/>
-  <testcase name="testCmp" classname="com.dmg.util.ValueTest" time="0.005"/>
-  <testcase name="testTypes" classname="com.dmg.util.ValueTest" time="0.001"/>
-  <testcase name="longListRLPBug_1" classname="com.dmg.util.ValueTest" time="0.004"/>
+  <testcase name="testCmp" classname="com.dmg.util.ValueTest" time="0.006"/>
+  <testcase name="testTypes" classname="com.dmg.util.ValueTest" time="0.002"/>
+  <testcase name="longListRLPBug_1" classname="com.dmg.util.ValueTest" time="0.005"/>
   <system-out><![CDATA[]]></system-out>
   <system-err><![CDATA[]]></system-err>
 </testsuite>

@@ -36,7 +36,7 @@ dependencies {
     compile "org.fusesource.leveldbjni:leveldbjni:1.8"
 //  compile "org.fusesource.leveldbjni:leveldbjni-win64:1.8"
     compile "com.typesafe:config:1.2.1"
-    compile "net.sf.json-lib:json-lib:2.2.3"
+    compile "net.sf.json-lib:json-lib:2.2.3:jdk15"
     
     // Declare the dependency for your favourite test framework you want to use in your tests.
     // TestNG is also supported by the Gradle Test task. Just change the

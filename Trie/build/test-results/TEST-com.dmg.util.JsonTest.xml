@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.dmg.util.JsonTest" tests="2" skipped="1" failures="0" errors="0" timestamp="2016-07-01T07:09:07" hostname="jiehua-node1" time="0.099">
+  <properties/>
+  <testcase name="TestJsonMap" classname="com.dmg.util.JsonTest" time="0.098"/>
+  <testcase name="TetsJsonObject" classname="com.dmg.util.JsonTest" time="0.0">
+    <skipped/>
+  </testcase>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>
