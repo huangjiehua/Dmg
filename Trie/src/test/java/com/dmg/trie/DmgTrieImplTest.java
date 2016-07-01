@@ -371,17 +371,6 @@ public class DmgTrieImplTest {
         assertEquals(dog, new String(DmgTrieImpl.get32(trie, testkey5)));
     }
 
-   /* @Test
-    public void TestObjectStorage() {
-        TrieImpl trie = new TrieImpl(levelDb);
-        UserNode  n = new UserNode(testkey1, dog, 0, 0, 0, 0, 0, 0);
-        List<Object> no = new ArrayList<Object>();
-        no.add(0, n.getUid());
-        no.add(1, n.getAddress());
-        Value val = new Value(no);
-        trie.update(testkey1.getBytes(), val.encode());
-    }*/
-
     @Test
     public void TestDelete1() {
         TrieImpl trie = new TrieImpl(levelDb);
@@ -408,5 +397,10 @@ public class DmgTrieImplTest {
         TrieImpl trie = new TrieImpl(mockDb);
         //assertEquals("", new String(trie.get("huangjiehua")));
         assertEquals("".getBytes(), trie.get("huangjiehua"));
+    }
+
+    @Test
+    public void TestObject_field1() {
+        TrieImpl trie = 
     }
 }

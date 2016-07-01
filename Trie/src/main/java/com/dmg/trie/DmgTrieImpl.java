@@ -91,7 +91,7 @@ public class DmgTrieImpl {
                         if (subkey[0] == '5') {
                             JSONObject jo = JSONObject.fromObject(new String(rlpdata));
                             Value val = Value.fromRlpEncoded(jo.getString("root").getBytes());
-                            TrieImpl subtrie = new TrieImpl(levelDb, val.asObj());
+                            TrieImpl subtrie = new TrieImpl(mockDb, val.asObj());
                             subtrie.setCache(trie.getCache());
                             rlpdata = subtrie.get(subkey);
                             if(new String(rlpdata)==""){
@@ -126,7 +126,7 @@ public class DmgTrieImpl {
                         if (subkey[0] == '7') {
                             JSONObject jo = JSONObject.fromObject(new String(rlpdata));
                             Value val = Value.fromRlpEncoded(jo.getString("root").getBytes());
-                            TrieImpl subtrie = new TrieImpl(levelDb, val.asObj());
+                            TrieImpl subtrie = new TrieImpl(mockDb, val.asObj());
                             subtrie.setCache(trie.getCache());
                             rlpdata = subtrie.get(subkey);
                             if(new String(rlpdata)==""){
@@ -198,7 +198,7 @@ public class DmgTrieImpl {
                         if (subkey[0] == '5') {
                             JSONObject jo = JSONObject.fromObject(new String(rlpdata));
                             Value val = Value.fromRlpEncoded(jo.getString("root").getBytes());
-                            TrieImpl subtrie = new TrieImpl(levelDb, val.asObj());
+                            TrieImpl subtrie = new TrieImpl(mockDb, val.asObj());
                             subtrie.setCache(trie.getCache());
                             rlpdata = subtrie.get(subkey);
                         }
@@ -222,7 +222,7 @@ public class DmgTrieImpl {
                         if (subkey[0] == '7') {
                             JSONObject jo = JSONObject.fromObject(new String(rlpdata));
                             Value val = Value.fromRlpEncoded(jo.getString("root").getBytes());
-                            TrieImpl subtrie = new TrieImpl(levelDb, val.asObj());
+                            TrieImpl subtrie = new TrieImpl(mockDb, val.asObj());
                             subtrie.setCache(trie.getCache());
                             rlpdata = subtrie.get(subkey);
                         }
@@ -336,7 +336,7 @@ public class DmgTrieImpl {
                         if (subkey2[0] == '5') {
                             JSONObject jo = JSONObject.fromObject(new String(rlpdata));
                             Value val = Value.fromRlpEncoded(jo.getString("root").getBytes());
-                            TrieImpl subtrie = new TrieImpl(levelDb, val.asObj());
+                            TrieImpl subtrie = new TrieImpl(mockDb, val.asObj());
                             subtrie.setCache(trie.getCache());
                             rlpdata = subtrie.get(subkey);
                             if(new String(rlpdata)==""){
@@ -386,7 +386,7 @@ public class DmgTrieImpl {
                         if (subkey2[0] == '7') {
                             JSONObject jo = JSONObject.fromObject(new String(rlpdata));
                             Value val = Value.fromRlpEncoded(jo.getString("root").getBytes());
-                            TrieImpl subtrie = new TrieImpl(levelDb, val.asObj());
+                            TrieImpl subtrie = new TrieImpl(mockDb, val.asObj());
                             subtrie.setCache(trie.getCache());
                             rlpdata = subtrie.get(subkey);
                             if(new String(rlpdata)==""){
@@ -472,8 +472,7 @@ public class DmgTrieImpl {
                     if (subkey2[0] == '5') {
                         rlpdata = trie.get(subkey1);
                         Value val = Value.fromRlpEncoded(rlpdata);
-                        KeyValueDataSource levelDb = new LevelDbDataSource("triedb");
-                        TrieImpl subtrie = new TrieImpl(levelDb, val.asObj());
+                        TrieImpl subtrie = new TrieImpl(mockDb, val.asObj());
                         subtrie.setCache(trie.getCache());
                         subtrie.update(subkey2, value);
                         val = new Value(subtrie.getRoot());
@@ -501,8 +500,7 @@ public class DmgTrieImpl {
                     if (subkey2[0] == '7') {
                         rlpdata = trie.get(subkey1);
                         Value val = Value.fromRlpEncoded(rlpdata);
-                        KeyValueDataSource levelDb = new LevelDbDataSource("triedb");
-                        TrieImpl subtrie = new TrieImpl(levelDb, val.asObj());
+                        TrieImpl subtrie = new TrieImpl(mockDb, val.asObj());
                         subtrie.setCache(trie.getCache());
                         subtrie.update(subkey2, value);
                         val = new Value(subtrie.getRoot());
