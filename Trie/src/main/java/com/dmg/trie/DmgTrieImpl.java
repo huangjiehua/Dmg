@@ -18,6 +18,7 @@ import com.dmg.datasource.LevelDbDataSource;
 import com.dmg.datasource.HashMapDB;
 import com.dmg.util.RLP;
 import com.dmg.util.Value;
+import java.util.*;
 
 import static com.dmg.util.ByteUtil.EMPTY_BYTE_ARRAY;
 import static com.dmg.util.CompactEncoder.binToNibbles;
@@ -256,19 +257,66 @@ public class DmgTrieImpl {
                     for(int i = 0; i < 16; i++){
                         subkey1[i] = key[i];
                     }
-                    trie.update(subkey1, value);
+                    rlpdata = trie.update(subkey1, value);
+                    if(new String(rlpdata)==""){
+                        return rlpdata;
+                    }
+                    JSONObject jo = JSONObject.fromObject(new String(rlpdata));
+                    jo = JSONObject.fromObject(new String(rlpdata));
+                    Map<String, String> map = new HashMap<String, String>();
+                    p.put("uid", jo.getString("uid"));
+                    map.put("address", jo.getString("address"));
+                    map.put("total", jo.getString("total"));
+                    map.put("available", jo.getString("available"));
+                    map.put("freeze", jo.getString("freeze"));
+                    map.put("total_invest", jo.getString("total_invest"));
+                    map.put("status", jo.getString("status"));
+                    map.put("experience", jo.getString("experience"));
+                    map.put(field, jo.getString(field));
+                    jo = JSONObject.fromObject(map);
+                    trie.update(subkey1, jo.toString().getBytes());    
                     break;
                 }
             case '2':
                 {
-                	for(int i = 0; i < 16; i++){
+                    for(int i = 0; i < 16; i++){
                         subkey1[i] = key[i];
                     }
-                    trie.update(subkey1, value);
+                    rlpdata = trie.update(subkey1, value);
+                    if(new String(rlpdata)==""){
+                        return rlpdata;
+                    }
+                    JSONObject jo = JSONObject.fromObject(new String(rlpdata));
+                    jo = JSONObject.fromObject(new String(rlpdata));
+                    Map<String, String> map = new HashMap<String, String>();
+                    p.put("uid", jo.getString("uid"));
+                    map.put("address", jo.getString("address"));
+                    map.put("reputation", jo.getString("reputation"));
+                    map.put("status", jo.getString("status"));
+                    map.put(field, jo.getString(field));
+                    jo = JSONObject.fromObject(map);
+                    trie.update(subkey1, jo.toString().getBytes());    
                     break;
                 }
             case '3':
                 {
+                    for(int i = 0; i < 16; i++){
+                        subkey1[i] = key[i];
+                    }
+                    rlpdata = trie.update(subkey1, value);
+                    if(new String(rlpdata)==""){
+                        return rlpdata;
+                    }
+                    JSONObject jo = JSONObject.fromObject(new String(rlpdata));
+                    jo = JSONObject.fromObject(new String(rlpdata));
+                    Map<String, String> map = new HashMap<String, String>();
+                    p.put("uid", jo.getString("uid"));
+                    map.put("address", jo.getString("address"));
+                    map.put("username", jo.getString("username"));
+                    map.put(field, jo.getString(field));
+                    jo = JSONObject.fromObject(map);
+                    trie.update(subkey1, jo.toString().getBytes());    
+                    break;
                 	for(int i = 0; i < 16; i++){
                         subkey1[i] = key[i];
                     }
@@ -278,14 +326,14 @@ public class DmgTrieImpl {
             case '4':
                 {
                     for(int i = 0; i < 16; i++){
-                        subkey[i] = key[i];
+                        subkey1[i] = key[i];
                     }
-                    rlpdata = trie.get(subkey);
+                    rlpdata = trie.get(subkey1);
                     if(new String(rlpdata) != ""){
                         for(int i = 16; i < 32;i++){
-                            subkey[i-16] = key[i];
+                            subkey2[i-16] = key[i];
                         }
-                        if (subkey[0] == '5') {
+                        if (subkey2[0] == '5') {
                             JSONObject jo = JSONObject.fromObject(new String(rlpdata));
                             Value val = Value.fromRlpEncoded(jo.getString("root").getBytes());
                             TrieImpl subtrie = new TrieImpl(levelDb, val.asObj());
@@ -295,74 +343,82 @@ public class DmgTrieImpl {
                                 return rlpdata;
                             }
                             jo = JSONObject.fromObject(new String(rlpdata));
-                        return jo.getString(field).getBytes();   
+                            Map<String, String> map = new HashMap<String, String>();
+                            map.put("storage", jo.getString("storage"));
+                            map.put("code", jo.getString("code"));
+                            map.put(field, jo.getString(field));
+                            jo = JSONObject.fromObject(map);
+                            subtrie.update(subkey2, jo.toString().getBytes());
 
-                    }
-                    else if(subkey[0] == '0'){
-                        if(new String(rlpdata)==""){
-                            return rlpdata;
+                            
                         }
-                        JSONObject jo = JSONObject.fromObject(new String(rlpdata));
-                        return jo.getString(field).getBytes();   
+                        else if(subkey2[0] == '0'){
+                            if(new String(rlpdata)==""){
+                                return rlpdata;
+                            }
+                            JSONObject jo = JSONObject.fromObject(new String(rlpdata));
+                            jo = JSONObject.fromObject(new String(rlpdata));
+                            Map<String, String> map = new HashMap<String, String>();
+                            map.put("root", jo.getString("root"));
+                            map.put("storage", jo.getString("storage"));
+                            map.put("code", jo.getString("code"));
+                            map.put(field, jo.getString(field));
+                            jo = JSONObject.fromObject(map);
+                            trie.update(subkey1, jo.toString().getBytes());    
                 
-                    }
-                    System.out.println("The key is wrong.");
-                    break;
-                   
-                	for(int i = 0; i < 16; i++){
-                        subkey1[i] = key[i];
-                    }
-
-                    for(int i = 16; i < 32;i++){
-                        subkey2[i-16] = key[i];
-                    }
-                    if (subkey2[0] == '5') {
-                        rlpdata = trie.get(subkey1);
-                        Value val = Value.fromRlpEncoded(rlpdata);
-                        KeyValueDataSource levelDb = new LevelDbDataSource("triedb");
-                        TrieImpl subtrie = new TrieImpl(levelDb, val.asObj());
-                        subtrie.setCache(trie.getCache());
-                        subtrie.update(subkey2, value);
-                        val = new Value(subtrie.getRoot());
-                        rlpdata = val.encode();
-                        trie.update(subkey1, rlpdata);
-                    }
-                    else if(subkey2[0] == '0') {
-                        trie.update(subkey1, value);       
-                    }
-                    else {
+                        }
                         System.out.println("The key is wrong.");
+                        break;
+
                     }
-                    break;
                 }
                 
             case '6':
                 {
-                	for(int i = 0; i < 16; i++){
+                    for(int i = 0; i < 16; i++){
                         subkey1[i] = key[i];
                     }
+                    rlpdata = trie.get(subkey1);
+                    if(new String(rlpdata) != ""){
+                        for(int i = 16; i < 32;i++){
+                            subkey2[i-16] = key[i];
+                        }
+                        if (subkey2[0] == '7') {
+                            JSONObject jo = JSONObject.fromObject(new String(rlpdata));
+                            Value val = Value.fromRlpEncoded(jo.getString("root").getBytes());
+                            TrieImpl subtrie = new TrieImpl(levelDb, val.asObj());
+                            subtrie.setCache(trie.getCache());
+                            rlpdata = subtrie.get(subkey);
+                            if(new String(rlpdata)==""){
+                                return rlpdata;
+                            }
+                            jo = JSONObject.fromObject(new String(rlpdata));
+                            Map<String, String> map = new HashMap<String, String>();
+                            map.put("storage", jo.getString("storage"));
+                            map.put(field, jo.getString(field));
+                            jo = JSONObject.fromObject(map);
+                            subtrie.update(subkey2, jo.toString().getBytes());
 
-                    for(int i = 16; i < 32;i++){
-                        subkey2[i-16] = key[i];
-                    }
-                    if (subkey2[0] == '7') {
-                        rlpdata = trie.get(subkey1);
-                        Value val = Value.fromRlpEncoded(rlpdata);
-                        KeyValueDataSource levelDb = new LevelDbDataSource("triedb");
-                        TrieImpl subtrie = new TrieImpl(levelDb, val.asObj());
-                        subtrie.setCache(trie.getCache());
-                        subtrie.update(subkey2, value);
-                        val = new Value(subtrie.getRoot());
-                        rlpdata = val.encode();
-                        trie.update(subkey1, rlpdata);
-                    }
-                    else if(subkey2[0] == '0') {
-                        trie.update(subkey1, value);       
-                    }
-                    else {
+                            
+                        }
+                        else if(subkey2[0] == '0'){
+                            if(new String(rlpdata)==""){
+                                return rlpdata;
+                            }
+                            JSONObject jo = JSONObject.fromObject(new String(rlpdata));
+                            jo = JSONObject.fromObject(new String(rlpdata));
+                            Map<String, String> map = new HashMap<String, String>();
+                            map.put("root", jo.getString("root"));
+                            map.put("storage", jo.getString("storage"));
+                            map.put(field, jo.getString(field));
+                            jo = JSONObject.fromObject(map);
+                            trie.update(subkey1, jo.toString().getBytes());    
+                
+                        }
                         System.out.println("The key is wrong.");
-                    }
-                    break;
+                        break;
+
+                    }    
                 }
                 
             default: System.out.println("wrong key"); 
