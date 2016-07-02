@@ -325,18 +325,21 @@ public class DmgTrieImpl {
                             subkey2[i-16] = key[i];
                         }
                         if (subkey2[0] == '5') {
+                            //Value val = Value.fromRlpEncoded(rlpdata);
                             JSONObject jo = JSONObject.fromObject(new String(rlpdata));
                             Value val = Value.fromRlpEncoded(jo.getString("root").getBytes());
                             TrieImpl subtrie = new TrieImpl(mockDb, val.asObj());
                             subtrie.setCache(trie.getCache());
                             rlpdata1 = subtrie.get(subkey2);
-                            if(new String(rlpdata)!=""){
+                            if(new String(rlpdata1)!=""){
+                                //val = Value.fromRlpEncoded(rlpdata1);
                                 jo = JSONObject.fromObject(new String(rlpdata1));
                                 Map<String, String> map = new HashMap<String, String>();
                                 map.put("storage", jo.getString("storage"));
                                 map.put("code", jo.getString("code"));
                                 map.put(field, new String(value));
                                 jo = JSONObject.fromObject(map);
+                                //val = new Value(jo.toString());
                                 subtrie.update(subkey2, jo.toString().getBytes());
                                 val = new Value(subtrie.getRoot());
                                 jo = JSONObject.fromObject(new String(rlpdata));
@@ -345,6 +348,7 @@ public class DmgTrieImpl {
                                 map.put("storage", jo.getString("storage"));
                                 map.put("code", jo.getString("code"));
                                 jo = JSONObject.fromObject(map);
+                                //val = new value(jo.toString());
                                 trie.update(subkey1, jo.toString().getBytes());    
 
                             }

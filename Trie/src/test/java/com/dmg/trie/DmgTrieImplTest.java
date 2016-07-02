@@ -571,15 +571,30 @@ public class DmgTrieImplTest {
     @Test
     public void TestObject_field11() {
         TrieImpl trie = new TrieImpl(mockDb);
+        trie.update(testkey8, dog);
         Value val = new Value(trie.getRoot());
         Map<String, String> map = new HashMap<String, String>();
         map.put("root", new String(val.encode()));
         map.put("storage", "123");
         map.put("code", "0");
         JSONObject jo = JSONObject.fromObject(map);
-        DmgTrieImpl.update32(trie, testkey4, jo.toString());
-        assertEquals("", new String(DmgTrieImpl.get32(trie, testkey5)));
+        TrieImpl trie1 = new TrieImpl(mockDb);
+        trie1.setCache(trie.getCache());
+        DmgTrieImpl.update32(trie1, testkey4, jo.toString());
+        JSONObject ja = JSONObject.fromObject(new String(DmgTrieImpl.get32(trie1, testkey4)));
+        assertEquals(jo.getString("root"), ja.getString("root"));
+        //val = Value.fromRlpEncoded(jo.getString("root").getBytes());
+        TrieImpl trie2 = new TrieImpl(mockDb, val.asObj());
+        trie2.setCache(trie1.getCache());
+        assertEquals(jo.getString("root").getBytes(), val.encode());
+        //assertEquals(dog, new String(trie2.get(testkey8)));
+        //assertEquals(dog, new String(DmgTrieImpl.get32(trie1, testkey5)));
     }
+   // @Test
+   // public void TestObject_field12() {
+   //     TrieImpl trie = new TrieImpl(mockDb);
+        
+   // }
 /*
     @Test
     public void TestObject_field8() {
