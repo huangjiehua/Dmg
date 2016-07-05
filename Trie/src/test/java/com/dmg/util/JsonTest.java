@@ -7,32 +7,12 @@
 package com.dmg.util;
 
 import com.dmg.trie.*;
-import com.dmg.datasource.KeyValueDataSource;
-import com.dmg.datasource.LevelDbDataSource;
-import com.dmg.datasource.HashMapDB;
-import com.dmg.util.*;
-import org.junit.After;
-import org.junit.Assert;
 import org.junit.Ignore;
 import org.junit.Test;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.spongycastle.util.encoders.Hex;
-import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
-
-import java.io.File;
-import java.io.IOException;
-import java.math.BigInteger;
-import java.net.URISyntaxException;
-import java.net.URL;
-import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
 import java.util.*;
-
-import static com.dmg.crypto.HashUtil.EMPTY_TRIE_HASH;
 import static org.junit.Assert.*;
-import static com.dmg.util.ByteUtil.wrap;
+
 
 public class JsonTest{
 
@@ -52,14 +32,4 @@ public class JsonTest{
         assertEquals("23", jb.getString("age"));
     }
 
-    @Ignore
-    @Test
-    public void TetsJsonObject() {
-        UserNode  n = new UserNode("0001", "dog", 0, 0, 0, 0, 0, 0);
-        JSONObject jsonObject1 = JSONObject.fromObject(n);  
-        JSONObject jsonObject2 = JSONObject.fromObject(jsonObject1.toString());  
-        Object usernode = JSONObject.toBean( jsonObject1  );  
-        assertEquals( jsonObject2.get( "_uid"  ), n.getUid());  
-        assertEquals( jsonObject2.get( "_address"  ), n.getAddress());  
-    }
 }

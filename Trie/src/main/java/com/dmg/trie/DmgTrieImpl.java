@@ -24,19 +24,37 @@ import static com.dmg.util.ByteUtil.EMPTY_BYTE_ARRAY;
 import static com.dmg.util.CompactEncoder.binToNibbles;
 import static com.dmg.crypto.HashUtil.EMPTY_TRIE_HASH;
 
+/**
+ * 
+ * @author jiehua
+ * Description: This Class is uesd for Dmgblockchain, and the trie is a key-value storage.
+ * The key is a 32-byte String, which can be divided into two subkeys used for subtrie. 
+ * There are 7 node-types totally, and different node-types have different starters, 
+ * which is the first byte in the key.
+ * 	usernode---"1**************0000000000000000"
+ * 	computenode---"2***************0000000000000000"
+ * 	thirdpartynode---"3***************0000000000000000"
+ * 	projectnode---"4***************0000000000000000"
+ * 	contractnode---"4***************5***************"
+ * 	tablenode---"6***************0000000000000000"
+ * 	rownode---"6***************7****************"
+ * 
+ */
+
 public class DmgTrieImpl {
     private static final Logger logger = LoggerFactory.getLogger("dmgtrie");
     private static HashMapDB mockDb = new HashMapDB();
     
     /**
-     * Retrieve a value from a key as String, and 32 means the length of key.
+     * Description: Retrieve a value from a key as String, and 32 means the length of key.
+     * Every Value in the trie is some kind of jsonstring. "field" is one key in the jsonstring. 
      */
-    public static byte[] get32(TrieImpl trie, String key, String field) {
+    public static String get32(TrieImpl trie, String key, String field) {
         return get32(trie, key.getBytes(), field);
     }
 
 
-    public static byte[] get32(TrieImpl trie, byte[] key, String field) {
+    public static String get32(TrieImpl trie, byte[] key, String field) {
         byte[] subkey = new byte[16];
         byte[] rlpdata ;
         switch(key[0]) {
@@ -47,10 +65,10 @@ public class DmgTrieImpl {
                     }
                     rlpdata = trie.get(subkey);
                     if(new String(rlpdata) == ""){
-                        return rlpdata;
+                        return "";
                     }
                     JSONObject jo = JSONObject.fromObject(new String(rlpdata));
-                    return jo.getString(field).getBytes();
+                    return jo.getString(field);
                 }
             case '2':
                 {
@@ -59,10 +77,10 @@ public class DmgTrieImpl {
                     }
                     rlpdata = trie.get(subkey);
                     if(new String(rlpdata) == ""){
-                        return rlpdata;
+                        return "";
                     }
                     JSONObject jo = JSONObject.fromObject(new String(rlpdata));
-                    return jo.getString(field).getBytes();   
+                    return jo.getString(field);   
                 
                 }
             case '3':
@@ -72,10 +90,10 @@ public class DmgTrieImpl {
                     }
                     rlpdata = trie.get(subkey);
                     if(new String(rlpdata) == ""){
-                        return rlpdata;
+                        return "";
                     }
                     JSONObject jo = JSONObject.fromObject(new String(rlpdata));
-                    return jo.getString(field).getBytes();   
+                    return jo.getString(field);   
                 
                 }
             case '4':
@@ -95,27 +113,25 @@ public class DmgTrieImpl {
                             subtrie.setCache(trie.getCache());
                             rlpdata = subtrie.get(subkey);
                             if(new String(rlpdata)==""){
-                                return rlpdata;
+                                return "";
                             }
                             jo = JSONObject.fromObject(new String(rlpdata));
-                            return jo.getString(field).getBytes();   
+                            return jo.getString(field);   
 
                         }
                         else if(subkey[0] == '0'){
-                            if(new String(rlpdata)==""){
-                                return rlpdata;
-                            }
                             JSONObject jo = JSONObject.fromObject(new String(rlpdata));
-                            return jo.getString(field).getBytes();   
+                            return jo.getString(field);   
                 
                         }
                         System.out.println("The key is wrong.");
                         break;
                     }
+                    else return "";
                 }
             case '6':
                 {
-                    for(int i = 0; i < 16; i++){
+                	for(int i = 0; i < 16; i++){
                         subkey[i] = key[i];
                     }
                     rlpdata = trie.get(subkey);
@@ -130,36 +146,37 @@ public class DmgTrieImpl {
                             subtrie.setCache(trie.getCache());
                             rlpdata = subtrie.get(subkey);
                             if(new String(rlpdata)==""){
-                                return rlpdata;
+                                return "";
                             }
                             jo = JSONObject.fromObject(new String(rlpdata));
-                            return jo.getString(field).getBytes();   
+                            return jo.getString(field);   
 
                         }
                         else if(subkey[0] == '0'){
-                            if(new String(rlpdata)==""){
-                                return rlpdata;
-                            }
                             JSONObject jo = JSONObject.fromObject(new String(rlpdata));
-                            return jo.getString(field).getBytes();   
+                            return jo.getString(field);   
                 
                         }
                         System.out.println("The key is wrong.");
                         break;
                     }
+                    else return "";
                 }
                 
             default: System.out.println("wrong key"); 
         }
-        return "".getBytes();
+        return "";
     }
 
-    public static byte[] get32(TrieImpl trie, String key) {
+    /*
+     * Description: Getting the jsonstring  of key in the trie or "";
+     */
+    public static String get32(TrieImpl trie, String key) {
         return get32(trie, key.getBytes());
     }
 
 
-    public static byte[] get32(TrieImpl trie, byte[] key) {
+    public static String get32(TrieImpl trie, byte[] key) {
         //byte[] k = binToNibbles(key);
         byte[] subkey = new byte[16];
         byte[] rlpdata ;
@@ -169,21 +186,21 @@ public class DmgTrieImpl {
                     for(int i = 0; i < 16; i++){
                         subkey[i] = key[i];
                     }
-                    return trie.get(subkey);
+                    return new String(trie.get(subkey));
                 }
             case '2':
                 {
                     for(int i = 0; i < 16; i++){
                         subkey[i] = key[i];
                     }
-                    return trie.get(subkey);
+                    return new String(trie.get(subkey));
                 }
             case '3':
                 {
                     for(int i = 0; i < 16; i++){
                         subkey[i] = key[i];
                     }
-                    return trie.get(subkey);
+                    return new String(trie.get(subkey));
                 }
             case '4':
                 {
@@ -201,16 +218,18 @@ public class DmgTrieImpl {
                             TrieImpl subtrie = new TrieImpl(mockDb, val.asObj());
                             subtrie.setCache(trie.getCache());
                             rlpdata = subtrie.get(subkey);
+                            return new String(rlpdata);
                         }
                         else if(subkey[0] != '0'){
                             System.out.println("The key is wrong.");
+                            break;
                         }
                     }
-                    return rlpdata;
+                    else return "";
                 }
             case '6':
                 {
-                    for(int i = 0; i < 16; i++){
+                	for(int i = 0; i < 16; i++){
                         subkey[i] = key[i];
                     }
                     rlpdata = trie.get(subkey);
@@ -220,32 +239,33 @@ public class DmgTrieImpl {
                         }
                         if (subkey[0] == '7') {
                             JSONObject jo = JSONObject.fromObject(new String(rlpdata));
-                            Value val = Value.fromRlpEncoded(jo.getString("root").getBytes());
+                            Value val = Value.fromRlpEncoded((jo.getString("root")).getBytes());
                             TrieImpl subtrie = new TrieImpl(mockDb, val.asObj());
                             subtrie.setCache(trie.getCache());
                             rlpdata = subtrie.get(subkey);
+                            return new String(rlpdata);
                         }
                         else if(subkey[0] != '0'){
                             System.out.println("The key is wrong.");
+                            break;
                         }
                     }
-                    return rlpdata;
+                    else return "";
                 }
             default: System.out.println("wrong key"); 
         }
-        return "".getBytes();
+        return "";
     }
 
     /**
      * Insert key/value pair into trie.
      */
     public static void update32(TrieImpl trie, String key, String field, String value) {
-        update32(trie, key.getBytes(), field, value.getBytes());
+        update32(trie, key.getBytes(), field, value);
     }
 
  
-    public static void update32(TrieImpl trie, byte[] key, String field ,byte[] value) {
-        //byte[] k = binToNibbles(key);
+    public static void update32(TrieImpl trie, byte[] key, String field , String value) {
         byte[] subkey1 = new byte[16];
         byte[] subkey2 = new byte[16];
         byte[] rlpdata;
@@ -269,7 +289,7 @@ public class DmgTrieImpl {
                         map.put("total_invest", jo.getString("total_invest"));
                         map.put("status", jo.getString("status"));
                         map.put("experience", jo.getString("experience"));
-                        map.put(field, new String(value));
+                        map.put(field, value);
                         jo = JSONObject.fromObject(map);
                         trie.update(subkey1, jo.toString().getBytes());    
                         break;
@@ -289,7 +309,7 @@ public class DmgTrieImpl {
                         map.put("address", jo.getString("address"));
                         map.put("reputation", jo.getString("reputation"));
                         map.put("status", jo.getString("status"));
-                        map.put(field, new String(value));
+                        map.put(field, value);
                         jo = JSONObject.fromObject(map);
                         trie.update(subkey1, jo.toString().getBytes());    
                         break;
@@ -308,7 +328,7 @@ public class DmgTrieImpl {
                         map.put("uid", jo.getString("uid"));
                         map.put("address", jo.getString("address"));
                         map.put("username", jo.getString("username"));
-                        map.put(field, new String(value));
+                        map.put(field, value);
                         jo = JSONObject.fromObject(map);
                         trie.update(subkey1, jo.toString().getBytes());    
                         break;
@@ -325,22 +345,20 @@ public class DmgTrieImpl {
                             subkey2[i-16] = key[i];
                         }
                         if (subkey2[0] == '5') {
-                            //Value val = Value.fromRlpEncoded(rlpdata);
                             JSONObject jo = JSONObject.fromObject(new String(rlpdata));
                             Value val = Value.fromRlpEncoded(jo.getString("root").getBytes());
                             TrieImpl subtrie = new TrieImpl(mockDb, val.asObj());
                             subtrie.setCache(trie.getCache());
                             rlpdata1 = subtrie.get(subkey2);
                             if(new String(rlpdata1)!=""){
-                                //val = Value.fromRlpEncoded(rlpdata1);
                                 jo = JSONObject.fromObject(new String(rlpdata1));
                                 Map<String, String> map = new HashMap<String, String>();
                                 map.put("storage", jo.getString("storage"));
                                 map.put("code", jo.getString("code"));
-                                map.put(field, new String(value));
+                                map.put(field, value);
                                 jo = JSONObject.fromObject(map);
-                                //val = new Value(jo.toString());
                                 subtrie.update(subkey2, jo.toString().getBytes());
+                                trie.setCache(subtrie.getCache());
                                 val = new Value(subtrie.getRoot());
                                 jo = JSONObject.fromObject(new String(rlpdata));
                                 map = new HashMap<String, String>();
@@ -348,27 +366,22 @@ public class DmgTrieImpl {
                                 map.put("storage", jo.getString("storage"));
                                 map.put("code", jo.getString("code"));
                                 jo = JSONObject.fromObject(map);
-                                //val = new value(jo.toString());
                                 trie.update(subkey1, jo.toString().getBytes());    
-
                             }
                         }
                         else if(subkey2[0] == '0'){
-                            if(new String(rlpdata)!=""){
-                                JSONObject jo = JSONObject.fromObject(new String(rlpdata));
-                                Map<String, String> map = new HashMap<String, String>();
-                                map.put("root", jo.getString("root"));
-                                map.put("storage", jo.getString("storage"));
-                                map.put("code", jo.getString("code"));
-                                map.put(field, new String(value));
-                                jo = JSONObject.fromObject(map);
-                                trie.update(subkey1, jo.toString().getBytes());    
-                            }
+                            JSONObject jo = JSONObject.fromObject(new String(rlpdata));
+                            Map<String, String> map = new HashMap<String, String>();
+                            map.put("root", jo.getString("root"));
+                            map.put("storage", jo.getString("storage"));
+                            map.put("code", jo.getString("code"));
+                            map.put(field, value);
+                            jo = JSONObject.fromObject(map);
+                            trie.update(subkey1, jo.toString().getBytes());    
                         }
-                        System.out.println("The key is wrong.");
-                        break;
-
+                        else System.out.println("The key is wrong.");
                     }
+                    break;
                 }
                 
             case '6':
@@ -391,9 +404,10 @@ public class DmgTrieImpl {
                                 jo = JSONObject.fromObject(new String(rlpdata1));
                                 Map<String, String> map = new HashMap<String, String>();
                                 map.put("storage", jo.getString("storage"));
-                                map.put(field, new String(value));
+                                map.put(field, value);
                                 jo = JSONObject.fromObject(map);
                                 subtrie.update(subkey2, jo.toString().getBytes());
+                                trie.setCache(subtrie.getCache());
                                 val = new Value(subtrie.getRoot());
                                 jo = JSONObject.fromObject(new String(rlpdata));
                                 map = new HashMap<String, String>();
@@ -409,15 +423,14 @@ public class DmgTrieImpl {
                                 Map<String, String> map = new HashMap<String, String>();
                                 map.put("root", jo.getString("root"));
                                 map.put("storage", jo.getString("storage"));
-                                map.put(field, new String(value));
+                                map.put(field, value);
                                 jo = JSONObject.fromObject(map);
                                 trie.update(subkey1, jo.toString().getBytes());    
                             }
                         }
-                        System.out.println("The key is wrong.");
-                        break;
-
+                        else System.out.println("The key is wrong.");
                     }
+                    break;
                 }
                 
             default: System.out.println("wrong key"); 
@@ -429,17 +442,16 @@ public class DmgTrieImpl {
 
  
     public static void update32(TrieImpl trie, byte[] key, byte[] value) {
-        //byte[] k = binToNibbles(key);
         byte[] subkey1 = new byte[16];
         byte[] subkey2 = new byte[16];
         byte[] rlpdata ;
+        byte[] rlpdata1;
         switch(key[0]) {
             case '1':
                 {
                     for(int i = 0; i < 16; i++){
                         subkey1[i] = key[i];
                     }
-
                     trie.update(subkey1, value);
                     break;
                 }
@@ -464,26 +476,33 @@ public class DmgTrieImpl {
                 	for(int i = 0; i < 16; i++){
                         subkey1[i] = key[i];
                     }
-
-                    for(int i = 16; i < 32;i++){
-                        subkey2[i-16] = key[i];
+                    rlpdata = trie.get(subkey1);
+                    if(new String(rlpdata) != ""){
+                        for(int i = 16; i < 32;i++){
+                            subkey2[i-16] = key[i];
+                        }
+                        if (subkey2[0] == '5') {
+                            JSONObject jo = JSONObject.fromObject(new String(rlpdata));
+                            Value val = Value.fromRlpEncoded(jo.getString("root").getBytes());
+                            TrieImpl subtrie = new TrieImpl(mockDb, val.asObj());
+                            subtrie.setCache(trie.getCache());
+                            subtrie.update(subkey2, value);
+                            trie.setCache(subtrie.getCache());
+                            val = new Value(subtrie.getRoot());
+                            jo = JSONObject.fromObject(new String(rlpdata));
+                            HashMap map = new HashMap<String, String>();
+                            map.put("root", new String(val.encode()));
+                            map.put("storage", jo.getString("storage"));
+                            map.put("code", jo.getString("code"));
+                            jo = JSONObject.fromObject(map);
+                            trie.update(subkey1, jo.toString().getBytes());    
+                        }
+                        else if(subkey2[0] == '0'){
+                        	trie.update(subkey1, value);
+                        }
+                        else System.out.println("The key is wrong.");
                     }
-                    if (subkey2[0] == '5') {
-                        rlpdata = trie.get(subkey1);
-                        Value val = Value.fromRlpEncoded(rlpdata);
-                        TrieImpl subtrie = new TrieImpl(mockDb, val.asObj());
-                        subtrie.setCache(trie.getCache());
-                        subtrie.update(subkey2, value);
-                        val = new Value(subtrie.getRoot());
-                        rlpdata = val.encode();
-                        trie.update(subkey1, rlpdata);
-                    }
-                    else if(subkey2[0] == '0') {
-                        trie.update(subkey1, value);       
-                    }
-                    else {
-                        System.out.println("The key is wrong.");
-                    }
+                    else trie.update(subkey1, value);
                     break;
                 }
                 
@@ -492,26 +511,32 @@ public class DmgTrieImpl {
                 	for(int i = 0; i < 16; i++){
                         subkey1[i] = key[i];
                     }
-
-                    for(int i = 16; i < 32;i++){
-                        subkey2[i-16] = key[i];
+                    rlpdata = trie.get(subkey1);
+                    if(new String(rlpdata) != ""){
+                        for(int i = 16; i < 32;i++){
+                            subkey2[i-16] = key[i];
+                        }
+                        if (subkey2[0] == '7') {
+                            JSONObject jo = JSONObject.fromObject(new String(rlpdata));
+                            Value val = Value.fromRlpEncoded(jo.getString("root").getBytes());
+                            TrieImpl subtrie = new TrieImpl(mockDb, val.asObj());
+                            subtrie.setCache(trie.getCache());
+                            subtrie.update(subkey2, value);
+                            trie.setCache(subtrie.getCache());
+                            val = new Value(subtrie.getRoot());
+                            jo = JSONObject.fromObject(new String(rlpdata));
+                            HashMap map = new HashMap<String, String>();
+                            map.put("root", new String(val.encode()));
+                            map.put("storage", jo.getString("storage"));
+                            jo = JSONObject.fromObject(map);
+                            trie.update(subkey1, jo.toString().getBytes());    
+                        }
+                        else if(subkey2[0] == '0'){
+                        	trie.update(subkey1, value);
+                        }
+                        else System.out.println("The key is wrong.");
                     }
-                    if (subkey2[0] == '7') {
-                        rlpdata = trie.get(subkey1);
-                        Value val = Value.fromRlpEncoded(rlpdata);
-                        TrieImpl subtrie = new TrieImpl(mockDb, val.asObj());
-                        subtrie.setCache(trie.getCache());
-                        subtrie.update(subkey2, value);
-                        val = new Value(subtrie.getRoot());
-                        rlpdata = val.encode();
-                        trie.update(subkey1, rlpdata);
-                    }
-                    else if(subkey2[0] == '0') {
-                        trie.update(subkey1, value);       
-                    }
-                    else {
-                        System.out.println("The key is wrong.");
-                    }
+                    else trie.update(subkey1, value);
                     break;
                 }
                 

@@ -18,22 +18,15 @@ import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.spongycastle.util.encoders.Hex;
-import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 
-import java.io.File;
 import java.io.IOException;
-import java.math.BigInteger;
-import java.net.URISyntaxException;
-import java.net.URL;
-import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
+import java.io.UnsupportedEncodingException;
 import java.util.*;
 
 import static com.dmg.crypto.HashUtil.EMPTY_TRIE_HASH;
 import static org.junit.Assert.*;
-import static com.dmg.util.ByteUtil.wrap;
-import static com.dmg.util.ByteUtil.EMPTY_BYTE_ARRAY;
+
 
 public class DmgTrieImplTest {
 
@@ -248,7 +241,7 @@ public class DmgTrieImplTest {
         DmgTrieImpl.update32(trie2, testkey1, LONG_STRING);
         assertTrue("Expected tries to be equal", trie1.equals(trie2));
         assertEquals(Hex.toHexString(trie1.getRootHash()), Hex.toHexString(trie2.getRootHash()));
-
+       
         DmgTrieImpl.update32(trie1, testkey2, LONG_STRING);
         DmgTrieImpl.update32(trie2, testkey3, LONG_STRING);
         assertFalse("Expected tries not to be equal", trie1.equals(trie2));
@@ -569,12 +562,12 @@ public class DmgTrieImplTest {
         assertEquals("1234", ja.getString("storage"));
     }
     @Test
-    public void TestObject_field11() {
+    public void TestObject_field11() throws UnsupportedEncodingException {
         TrieImpl trie = new TrieImpl(mockDb);
         trie.update(testkey8, dog);
         Value val = new Value(trie.getRoot());
         Map<String, String> map = new HashMap<String, String>();
-        map.put("root", new String(val.encode()));
+        map.put("root", val.encode().toString());
         map.put("storage", "123");
         map.put("code", "0");
         JSONObject jo = JSONObject.fromObject(map);
@@ -586,7 +579,7 @@ public class DmgTrieImplTest {
         //val = Value.fromRlpEncoded(jo.getString("root").getBytes());
         TrieImpl trie2 = new TrieImpl(mockDb, val.asObj());
         trie2.setCache(trie1.getCache());
-        assertEquals(jo.getString("root").getBytes(), val.encode());
+        assertEquals(trie.getRootHash(), trie2.getRootHash());
         //assertEquals(dog, new String(trie2.get(testkey8)));
         //assertEquals(dog, new String(DmgTrieImpl.get32(trie1, testkey5)));
     }
