@@ -398,7 +398,7 @@ public class DmgTrieImplTest {
         JSONObject jo = JSONObject.fromObject(map);
         DmgTrieImpl.update32(trie, testkey2, jo.toString());
         DmgTrieImpl.update32(trie, testkey2, "uid", "1234");
-        JSONObject ja = JSONObject.fromObject(new String(DmgTrieImpl.get32(trie, testkey2)));
+        JSONObject ja = JSONObject.fromObject(DmgTrieImpl.get32(trie, testkey2));
         assertEquals("1234", ja.getString("uid"));
         assertEquals(jo.getString("address"), ja.getString("address"));
         assertEquals(jo.getString("reputation"), ja.getString("reputation"));
@@ -413,7 +413,7 @@ public class DmgTrieImplTest {
         map.put("username", "0");
         JSONObject jo = JSONObject.fromObject(map);
         DmgTrieImpl.update32(trie, testkey3, jo.toString());
-        JSONObject ja = JSONObject.fromObject(new String(DmgTrieImpl.get32(trie, testkey3)));
+        JSONObject ja = JSONObject.fromObject(DmgTrieImpl.get32(trie, testkey3));
         assertEquals(jo.getString("uid"), ja.getString("uid"));
         assertEquals(jo.getString("address"), ja.getString("address"));
         assertEquals(jo.getString("username"), ja.getString("username"));
@@ -428,7 +428,7 @@ public class DmgTrieImplTest {
         JSONObject jo = JSONObject.fromObject(map);
         DmgTrieImpl.update32(trie, testkey3, jo.toString());
         DmgTrieImpl.update32(trie, testkey3, "uid", "1234");
-        JSONObject ja = JSONObject.fromObject(new String(DmgTrieImpl.get32(trie, testkey3)));
+        JSONObject ja = JSONObject.fromObject(DmgTrieImpl.get32(trie, testkey3));
         assertEquals("1234", ja.getString("uid"));
         assertEquals(jo.getString("address"), ja.getString("address"));
         assertEquals(jo.getString("username"), ja.getString("username"));
@@ -442,7 +442,7 @@ public class DmgTrieImplTest {
         map.put("code", "0");
         JSONObject jo = JSONObject.fromObject(map);
         DmgTrieImpl.update32(trie, testkey4, jo.toString());
-        JSONObject ja = JSONObject.fromObject(new String(DmgTrieImpl.get32(trie, testkey4)));
+        JSONObject ja = JSONObject.fromObject(DmgTrieImpl.get32(trie, testkey4));
         assertEquals(jo.getString("root"), ja.getString("root"));
         assertEquals(jo.getString("storage"), ja.getString("storage"));
         assertEquals(jo.getString("code"), ja.getString("code"));
@@ -457,7 +457,7 @@ public class DmgTrieImplTest {
         JSONObject jo = JSONObject.fromObject(map);
         DmgTrieImpl.update32(trie, testkey4, jo.toString());
         DmgTrieImpl.update32(trie, testkey4, "root", "1234");
-        JSONObject ja = JSONObject.fromObject(new String(DmgTrieImpl.get32(trie, testkey4)));
+        JSONObject ja = JSONObject.fromObject(DmgTrieImpl.get32(trie, testkey4));
         assertEquals("1234", ja.getString("root"));
         assertEquals(jo.getString("storage"), ja.getString("storage"));
         assertEquals(jo.getString("code"), ja.getString("code"));
@@ -470,7 +470,7 @@ public class DmgTrieImplTest {
         map.put("storage", "123");
         JSONObject jo = JSONObject.fromObject(map);
         DmgTrieImpl.update32(trie, testkey6, jo.toString());
-        JSONObject ja = JSONObject.fromObject(new String(DmgTrieImpl.get32(trie, testkey6)));
+        JSONObject ja = JSONObject.fromObject(DmgTrieImpl.get32(trie, testkey6));
         assertEquals(jo.getString("root"), ja.getString("root"));
         assertEquals(jo.getString("storage"), ja.getString("storage"));
     }
@@ -482,10 +482,10 @@ public class DmgTrieImplTest {
         map.put("storage", "123");
         JSONObject jo = JSONObject.fromObject(map);
         DmgTrieImpl.update32(trie, testkey6, jo.toString());
-        DmgTrieImpl.update32(trie, testkey6, "storage", "1234");
-        JSONObject ja = JSONObject.fromObject(new String(DmgTrieImpl.get32(trie, testkey6)));
+        //DmgTrieImpl.update32(trie, testkey6, "storage", "1234");
+        JSONObject ja = JSONObject.fromObject(DmgTrieImpl.get32(trie, testkey6));
         assertEquals(jo.getString("root"), ja.getString("root"));
-        assertEquals("1234", ja.getString("storage"));
+        assertEquals("123", ja.getString("storage"));
     }
     @Test
     public void TestObject_field11() throws UnsupportedEncodingException {
@@ -493,7 +493,7 @@ public class DmgTrieImplTest {
         trie.update(testkey8, dog);
         Value val = new Value(trie.getRoot());
         Map<String, String> map = new HashMap<String, String>();
-        map.put("root", val.encode().toString());
+        map.put("root", Utils.bytesToHexString(val.encode()));
         map.put("storage", "123");
         map.put("code", "0");
         JSONObject jo = JSONObject.fromObject(map);
@@ -502,58 +502,88 @@ public class DmgTrieImplTest {
         DmgTrieImpl.update32(trie1, testkey4, jo.toString());
         JSONObject ja = JSONObject.fromObject(new String(DmgTrieImpl.get32(trie1, testkey4)));
         assertEquals(jo.getString("root"), ja.getString("root"));
-        //val = Value.fromRlpEncoded(jo.getString("root").getBytes());
+        val = Value.fromRlpEncoded(Utils.hexStringToBytes(jo.getString("root")));
         TrieImpl trie2 = new TrieImpl(mockDb, val.asObj());
         trie2.setCache(trie1.getCache());
-        assertEquals(trie.getRootHash(), trie2.getRootHash());
-        //assertEquals(dog, new String(trie2.get(testkey8)));
-        //assertEquals(dog, new String(DmgTrieImpl.get32(trie1, testkey5)));
+        //assertEquals(trie.getRootHash(), trie2.getRootHash());
+        assertEquals(dog, new String(trie2.get(testkey8)));
+        assertEquals(dog, new String(DmgTrieImpl.get32(trie1, testkey5)));
     }
-   // @Test
-   // public void TestObject_field12() {
-   //     TrieImpl trie = new TrieImpl(mockDb);
-        
-   // }
-/*
     @Test
-    public void TestObject_field8() {
+    public void TestObject_field12() throws UnsupportedEncodingException {
         TrieImpl trie = new TrieImpl(mockDb);
+        trie.update(testkey9, dog);
+        Value val = new Value(trie.getRoot());
         Map<String, String> map = new HashMap<String, String>();
-        map.put("root", "123");
+        map.put("root", Utils.bytesToHexString(val.encode()));
         map.put("storage", "123");
-        map.put("code", "100");
+        JSONObject jo = JSONObject.fromObject(map);
+        TrieImpl trie1 = new TrieImpl(mockDb);
+        trie1.setCache(trie.getCache());
+        DmgTrieImpl.update32(trie1, testkey6, jo.toString());
+        JSONObject ja = JSONObject.fromObject(new String(DmgTrieImpl.get32(trie1, testkey6)));
+        assertEquals(jo.getString("root"), ja.getString("root"));
+        val = Value.fromRlpEncoded(Utils.hexStringToBytes(jo.getString("root")));
+        TrieImpl trie2 = new TrieImpl(mockDb, val.asObj());
+        trie2.setCache(trie1.getCache());
+        //assertEquals(trie.getRootHash(), trie2.getRootHash());
+        assertEquals(dog, new String(trie2.get(testkey9)));
+        assertEquals(dog, new String(DmgTrieImpl.get32(trie1, testkey7)));
+    }
+    @Test
+    public void TestObject_field13() throws UnsupportedEncodingException {
+        TrieImpl trie = new TrieImpl(mockDb);
+        Value val = new Value(trie.getRoot());
+        HashMap<String, String> map = new HashMap<String, String>();
+        map.put("root", Utils.bytesToHexString(val.encode()));
+        map.put("storage", "123");
+        map.put("code", "code");
         JSONObject jo = JSONObject.fromObject(map);
         DmgTrieImpl.update32(trie, testkey4, jo.toString());
-        DmgTrieImpl.update32(trie, testkey4, "root", "1234");
-        JSONObject ja = JSONObject.fromObject(new String(DmgTrieImpl.get32(trie, testkey4)));
-        assertEquals("1234", ja.getString("root"));
-        assertEquals(jo.getString("storage"), ja.getString("storage"));
-        assertEquals(jo.getString("code"), ja.getString("code"));
+        map = new HashMap<String, String>();
+        map.put("storage", "123");
+        map.put("code", "code");
+        jo = JSONObject.fromObject(map);
+        DmgTrieImpl.update32(trie, testkey5, jo.toString());
+        assertEquals("123", DmgTrieImpl.get32(trie, testkey5, "storage"));
     }
     @Test
-    public void TestObject_field9() {
+    public void TestObject_field14() throws UnsupportedEncodingException {
         TrieImpl trie = new TrieImpl(mockDb);
-        Map<String, String> map = new HashMap<String, String>();
-        map.put("root", "123");
+        Value val = new Value(trie.getRoot());
+        HashMap<String, String> map = new HashMap<String, String>();
+        map.put("root", Utils.bytesToHexString(val.encode()));
         map.put("storage", "123");
         JSONObject jo = JSONObject.fromObject(map);
         DmgTrieImpl.update32(trie, testkey6, jo.toString());
-        JSONObject ja = JSONObject.fromObject(new String(DmgTrieImpl.get32(trie, testkey6)));
-        assertEquals(jo.getString("root"), ja.getString("root"));
-        assertEquals(jo.getString("storage"), ja.getString("storage"));
+        map = new HashMap<String, String>();
+        map.put("storage", "123");
+        jo = JSONObject.fromObject(map);
+        DmgTrieImpl.update32(trie, testkey7, jo.toString());
+        assertEquals("123", DmgTrieImpl.get32(trie, testkey7, "storage"));
     }
     @Test
-    public void TestObject_field10() {
+    public void TestObject_field15() throws UnsupportedEncodingException {
         TrieImpl trie = new TrieImpl(mockDb);
-        Map<String, String> map = new HashMap<String, String>();
-        map.put("root", "123");
+        Value val = new Value(trie.getRoot());
+        HashMap<String, String> map = new HashMap<String, String>();
+        map.put("root", Utils.bytesToHexString(val.encode()));
+        map.put("storage", "123");
+        map.put("code", "code");
+        JSONObject jo = JSONObject.fromObject(map);
+        DmgTrieImpl.update32(trie, testkey4, jo.toString());
+        assertEquals("code", DmgTrieImpl.get32(trie, testkey4, "code"));
+    }
+    @Test
+    public void TestObject_field16() throws UnsupportedEncodingException {
+        TrieImpl trie = new TrieImpl(mockDb);
+        Value val = new Value(trie.getRoot());
+        HashMap<String, String> map = new HashMap<String, String>();
+        map.put("root", Utils.bytesToHexString(val.encode()));
         map.put("storage", "123");
         JSONObject jo = JSONObject.fromObject(map);
         DmgTrieImpl.update32(trie, testkey6, jo.toString());
-        DmgTrieImpl.update32(trie, testkey6, "storage", "1234");
-        JSONObject ja = JSONObject.fromObject(new String(DmgTrieImpl.get32(trie, testkey6)));
-        assertEquals(jo.getString("root"), ja.getString("root"));
-        assertEquals("1234", ja.getString("storage"));
+        assertEquals("123", DmgTrieImpl.get32(trie, testkey6, "storage"));
     }
-    */
+
 }
