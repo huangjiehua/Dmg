@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="com.dmg.util.JsonTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2016-07-05T08:53:45" hostname="jiehua-node1" time="0.148">
+<testsuite name="com.dmg.util.JsonTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2016-07-05T13:12:09" hostname="jiehua-node1" time="0.119">
   <properties/>
-  <testcase name="TestJsonMap" classname="com.dmg.util.JsonTest" time="0.148"/>
+  <testcase name="TestJsonMap" classname="com.dmg.util.JsonTest" time="0.119"/>
   <system-out><![CDATA[]]></system-out>
   <system-err><![CDATA[]]></system-err>
 </testsuite>
