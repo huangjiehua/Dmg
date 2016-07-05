@@ -333,7 +333,7 @@ public class DmgTrieImplTest {
         map.put("experience", "1");
         JSONObject jo = JSONObject.fromObject(map);
         DmgTrieImpl.update32(trie, testkey1, jo.toString());
-        JSONObject ja = JSONObject.fromObject(new String(DmgTrieImpl.get32(trie, testkey1)));
+        JSONObject ja = JSONObject.fromObject(DmgTrieImpl.get32(trie, testkey1));
         assertEquals(jo.getString("uid"), ja.getString("uid"));
         assertEquals(jo.getString("address"), ja.getString("address"));
         assertEquals(jo.getString("total"), ja.getString("total"));
@@ -360,7 +360,7 @@ public class DmgTrieImplTest {
         JSONObject jo = JSONObject.fromObject(map);
         DmgTrieImpl.update32(trie, testkey1, jo.toString());
         DmgTrieImpl.update32(trie, testkey1, "experience", "2");
-        JSONObject ja = JSONObject.fromObject(new String(DmgTrieImpl.get32(trie, testkey1)));
+        JSONObject ja = JSONObject.fromObject(DmgTrieImpl.get32(trie, testkey1));
         assertEquals(jo.getString("uid"), ja.getString("uid"));
         assertEquals(jo.getString("address"), ja.getString("address"));
         assertEquals(jo.getString("total"), ja.getString("total"));
@@ -381,7 +381,7 @@ public class DmgTrieImplTest {
         map.put("status", "0");
         JSONObject jo = JSONObject.fromObject(map);
         DmgTrieImpl.update32(trie, testkey2, jo.toString());
-        JSONObject ja = JSONObject.fromObject(new String(DmgTrieImpl.get32(trie, testkey2)));
+        JSONObject ja = JSONObject.fromObject(DmgTrieImpl.get32(trie, testkey2));
         assertEquals(jo.getString("uid"), ja.getString("uid"));
         assertEquals(jo.getString("address"), ja.getString("address"));
         assertEquals(jo.getString("reputation"), ja.getString("reputation"));

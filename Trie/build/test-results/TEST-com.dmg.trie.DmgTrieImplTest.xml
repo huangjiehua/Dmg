@@ -1,49 +1,34 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="com.dmg.trie.DmgTrieImplTest" tests="38" skipped="6" failures="5" errors="0" timestamp="2016-07-05T02:28:28" hostname="jiehua-node1" time="0.079">
+<testsuite name="com.dmg.trie.DmgTrieImplTest" tests="32" skipped="0" failures="5" errors="0" timestamp="2016-07-05T08:53:45" hostname="jiehua-node1" time="0.084">
   <properties/>
-  <testcase name="TestTrieRootCopy" classname="com.dmg.trie.DmgTrieImplTest" time="0.012"/>
-  <testcase name="testTrieEquals" classname="com.dmg.trie.DmgTrieImplTest" time="0.004"/>
+  <testcase name="TestTrieRootCopy" classname="com.dmg.trie.DmgTrieImplTest" time="0.013"/>
+  <testcase name="testTrieEquals" classname="com.dmg.trie.DmgTrieImplTest" time="0.005"/>
   <testcase name="testTrieCopy" classname="com.dmg.trie.DmgTrieImplTest" time="0.001"/>
-  <testcase name="testTrieUndo" classname="com.dmg.trie.DmgTrieImplTest" time="0.0"/>
-  <testcase name="NewProject" classname="com.dmg.trie.DmgTrieImplTest" time="0.0">
-    <skipped/>
-  </testcase>
+  <testcase name="testTrieUndo" classname="com.dmg.trie.DmgTrieImplTest" time="0.002"/>
   <testcase name="testUpdateLongToLongString" classname="com.dmg.trie.DmgTrieImplTest" time="0.001"/>
   <testcase name="testInsertLongString" classname="com.dmg.trie.DmgTrieImplTest" time="0.001"/>
   <testcase name="TestDelete1" classname="com.dmg.trie.DmgTrieImplTest" time="0.001"/>
-  <testcase name="testDeleteLongString1" classname="com.dmg.trie.DmgTrieImplTest" time="0.003"/>
-  <testcase name="TestSubTrie1" classname="com.dmg.trie.DmgTrieImplTest" time="0.0">
-    <skipped/>
-  </testcase>
-  <testcase name="TestSubTrie2" classname="com.dmg.trie.DmgTrieImplTest" time="0.0">
-    <skipped/>
-  </testcase>
-  <testcase name="testGetFromRootNode" classname="com.dmg.trie.DmgTrieImplTest" time="0.0">
-    <skipped/>
-  </testcase>
-  <testcase name="TestTrieDirtyTracking" classname="com.dmg.trie.DmgTrieImplTest" time="0.004"/>
+  <testcase name="testDeleteLongString1" classname="com.dmg.trie.DmgTrieImplTest" time="0.004"/>
+  <testcase name="testGetFromRootNode" classname="com.dmg.trie.DmgTrieImplTest" time="0.005"/>
+  <testcase name="TestTrieDirtyTracking" classname="com.dmg.trie.DmgTrieImplTest" time="0.003"/>
   <testcase name="testEmptyNode" classname="com.dmg.trie.DmgTrieImplTest" time="0.0"/>
-  <testcase name="testUpdateShortToShortString" classname="com.dmg.trie.DmgTrieImplTest" time="0.002"/>
-  <testcase name="testDeleteCompletellyDiferentItems" classname="com.dmg.trie.DmgTrieImplTest" time="0.001"/>
+  <testcase name="testUpdateShortToShortString" classname="com.dmg.trie.DmgTrieImplTest" time="0.001"/>
   <testcase name="testupdateLongToShortString" classname="com.dmg.trie.DmgTrieImplTest" time="0.001"/>
-  <testcase name="TestSubTrie1_update" classname="com.dmg.trie.DmgTrieImplTest" time="0.0">
-    <skipped/>
-  </testcase>
-  <testcase name="testUpdateShortToLongString" classname="com.dmg.trie.DmgTrieImplTest" time="0.001"/>
+  <testcase name="testUpdateShortToLongString" classname="com.dmg.trie.DmgTrieImplTest" time="0.002"/>
   <testcase name="testDeleteAll" classname="com.dmg.trie.DmgTrieImplTest" time="0.004"/>
   <testcase name="TestTrieReset" classname="com.dmg.trie.DmgTrieImplTest" time="0.001"/>
-  <testcase name="testDeleteShortString1" classname="com.dmg.trie.DmgTrieImplTest" time="0.003"/>
-  <testcase name="testInsertMultipleItems1" classname="com.dmg.trie.DmgTrieImplTest" time="0.004"/>
-  <testcase name="testInsertMultipleItems2" classname="com.dmg.trie.DmgTrieImplTest" time="0.003"/>
+  <testcase name="testDeleteShortString1" classname="com.dmg.trie.DmgTrieImplTest" time="0.002"/>
+  <testcase name="testInsertMultipleItems1" classname="com.dmg.trie.DmgTrieImplTest" time="0.007"/>
+  <testcase name="testInsertMultipleItems2" classname="com.dmg.trie.DmgTrieImplTest" time="0.002"/>
   <testcase name="testInsertShortString" classname="com.dmg.trie.DmgTrieImplTest" time="0.001"/>
-  <testcase name="TestObject_field10" classname="com.dmg.trie.DmgTrieImplTest" time="0.006">
+  <testcase name="TestObject_field10" classname="com.dmg.trie.DmgTrieImplTest" time="0.005">
     <failure message="net.sf.json.JSONException: A JSONObject text must begin with '{' at character 0 of " type="net.sf.json.JSONException">net.sf.json.JSONException: A JSONObject text must begin with '{' at character 0 of 
 	at net.sf.json.util.JSONTokener.syntaxError(JSONTokener.java:527)
 	at net.sf.json.JSONObject._fromJSONTokener(JSONObject.java:1112)
 	at net.sf.json.JSONObject._fromString(JSONObject.java:1337)
 	at net.sf.json.JSONObject.fromObject(JSONObject.java:187)
 	at net.sf.json.JSONObject.fromObject(JSONObject.java:156)
-	at com.dmg.trie.DmgTrieImplTest.TestObject_field10(DmgTrieImplTest.java:560)
+	at com.dmg.trie.DmgTrieImplTest.TestObject_field10(DmgTrieImplTest.java:486)
 	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
 	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
 	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
@@ -90,14 +75,14 @@
 	at java.lang.Thread.run(Thread.java:745)
 </failure>
   </testcase>
-  <testcase name="TestObject_field11" classname="com.dmg.trie.DmgTrieImplTest" time="0.001">
+  <testcase name="TestObject_field11" classname="com.dmg.trie.DmgTrieImplTest" time="0.002">
     <failure message="net.sf.json.JSONException: A JSONObject text must begin with '{' at character 0 of " type="net.sf.json.JSONException">net.sf.json.JSONException: A JSONObject text must begin with '{' at character 0 of 
 	at net.sf.json.util.JSONTokener.syntaxError(JSONTokener.java:527)
 	at net.sf.json.JSONObject._fromJSONTokener(JSONObject.java:1112)
 	at net.sf.json.JSONObject._fromString(JSONObject.java:1337)
 	at net.sf.json.JSONObject.fromObject(JSONObject.java:187)
 	at net.sf.json.JSONObject.fromObject(JSONObject.java:156)
-	at com.dmg.trie.DmgTrieImplTest.TestObject_field11(DmgTrieImplTest.java:577)
+	at com.dmg.trie.DmgTrieImplTest.TestObject_field11(DmgTrieImplTest.java:503)
 	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
 	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
 	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
@@ -144,24 +129,21 @@
 	at java.lang.Thread.run(Thread.java:745)
 </failure>
   </testcase>
-  <testcase name="TestSubTrie2_update" classname="com.dmg.trie.DmgTrieImplTest" time="0.0">
-    <skipped/>
-  </testcase>
-  <testcase name="testEmptyKey" classname="com.dmg.trie.DmgTrieImplTest" time="0.0"/>
+  <testcase name="testEmptyKey" classname="com.dmg.trie.DmgTrieImplTest" time="0.001"/>
   <testcase name="TestObject_field1" classname="com.dmg.trie.DmgTrieImplTest" time="0.001"/>
-  <testcase name="TestObject_field2" classname="com.dmg.trie.DmgTrieImplTest" time="0.003"/>
+  <testcase name="TestObject_field2" classname="com.dmg.trie.DmgTrieImplTest" time="0.002"/>
   <testcase name="TestObject_field3" classname="com.dmg.trie.DmgTrieImplTest" time="0.001"/>
-  <testcase name="TestObject_field4" classname="com.dmg.trie.DmgTrieImplTest" time="0.002"/>
-  <testcase name="TestObject_field5" classname="com.dmg.trie.DmgTrieImplTest" time="0.001"/>
+  <testcase name="TestObject_field4" classname="com.dmg.trie.DmgTrieImplTest" time="0.001"/>
+  <testcase name="TestObject_field5" classname="com.dmg.trie.DmgTrieImplTest" time="0.0"/>
   <testcase name="TestObject_field6" classname="com.dmg.trie.DmgTrieImplTest" time="0.001"/>
-  <testcase name="TestObject_field7" classname="com.dmg.trie.DmgTrieImplTest" time="0.001">
+  <testcase name="TestObject_field7" classname="com.dmg.trie.DmgTrieImplTest" time="0.0">
     <failure message="net.sf.json.JSONException: A JSONObject text must begin with '{' at character 0 of " type="net.sf.json.JSONException">net.sf.json.JSONException: A JSONObject text must begin with '{' at character 0 of 
 	at net.sf.json.util.JSONTokener.syntaxError(JSONTokener.java:527)
 	at net.sf.json.JSONObject._fromJSONTokener(JSONObject.java:1112)
 	at net.sf.json.JSONObject._fromString(JSONObject.java:1337)
 	at net.sf.json.JSONObject.fromObject(JSONObject.java:187)
 	at net.sf.json.JSONObject.fromObject(JSONObject.java:156)
-	at com.dmg.trie.DmgTrieImplTest.TestObject_field7(DmgTrieImplTest.java:519)
+	at com.dmg.trie.DmgTrieImplTest.TestObject_field7(DmgTrieImplTest.java:445)
 	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
 	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
 	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
@@ -215,7 +197,7 @@
 	at net.sf.json.JSONObject._fromString(JSONObject.java:1337)
 	at net.sf.json.JSONObject.fromObject(JSONObject.java:187)
 	at net.sf.json.JSONObject.fromObject(JSONObject.java:156)
-	at com.dmg.trie.DmgTrieImplTest.TestObject_field8(DmgTrieImplTest.java:534)
+	at com.dmg.trie.DmgTrieImplTest.TestObject_field8(DmgTrieImplTest.java:460)
 	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
 	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
 	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
@@ -269,7 +251,7 @@
 	at net.sf.json.JSONObject._fromString(JSONObject.java:1337)
 	at net.sf.json.JSONObject.fromObject(JSONObject.java:187)
 	at net.sf.json.JSONObject.fromObject(JSONObject.java:156)
-	at com.dmg.trie.DmgTrieImplTest.TestObject_field9(DmgTrieImplTest.java:547)
+	at com.dmg.trie.DmgTrieImplTest.TestObject_field9(DmgTrieImplTest.java:473)
 	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
 	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
 	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
@@ -317,13 +299,6 @@
 </failure>
   </testcase>
   <system-out><![CDATA[wrong key
-wrong key
-wrong key
-wrong key
-wrong key
-wrong key
-wrong key
-wrong key
 wrong key
 wrong key
 wrong key

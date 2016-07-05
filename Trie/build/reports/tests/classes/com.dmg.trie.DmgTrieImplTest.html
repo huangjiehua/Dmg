@@ -23,7 +23,7 @@
 <tr>
 <td>
 <div class="infoBox" id="tests">
-<div class="counter">38</div>
+<div class="counter">32</div>
 <p>tests</p>
 </div>
 </td>
@@ -35,13 +35,13 @@
 </td>
 <td>
 <div class="infoBox" id="ignored">
-<div class="counter">6</div>
+<div class="counter">0</div>
 <p>ignored</p>
 </div>
 </td>
 <td>
 <div class="infoBox" id="duration">
-<div class="counter">0.067s</div>
+<div class="counter">0.073s</div>
 <p>duration</p>
 </div>
 </td>
@@ -85,7 +85,7 @@
 	at net.sf.json.JSONObject._fromString(JSONObject.java:1337)
 	at net.sf.json.JSONObject.fromObject(JSONObject.java:187)
 	at net.sf.json.JSONObject.fromObject(JSONObject.java:156)
-	at com.dmg.trie.DmgTrieImplTest.TestObject_field10(DmgTrieImplTest.java:560)
+	at com.dmg.trie.DmgTrieImplTest.TestObject_field10(DmgTrieImplTest.java:486)
 	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
 	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
 	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
@@ -143,7 +143,7 @@
 	at net.sf.json.JSONObject._fromString(JSONObject.java:1337)
 	at net.sf.json.JSONObject.fromObject(JSONObject.java:187)
 	at net.sf.json.JSONObject.fromObject(JSONObject.java:156)
-	at com.dmg.trie.DmgTrieImplTest.TestObject_field11(DmgTrieImplTest.java:577)
+	at com.dmg.trie.DmgTrieImplTest.TestObject_field11(DmgTrieImplTest.java:503)
 	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
 	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
 	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
@@ -201,7 +201,7 @@
 	at net.sf.json.JSONObject._fromString(JSONObject.java:1337)
 	at net.sf.json.JSONObject.fromObject(JSONObject.java:187)
 	at net.sf.json.JSONObject.fromObject(JSONObject.java:156)
-	at com.dmg.trie.DmgTrieImplTest.TestObject_field7(DmgTrieImplTest.java:519)
+	at com.dmg.trie.DmgTrieImplTest.TestObject_field7(DmgTrieImplTest.java:445)
 	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
 	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
 	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
@@ -259,7 +259,7 @@
 	at net.sf.json.JSONObject._fromString(JSONObject.java:1337)
 	at net.sf.json.JSONObject.fromObject(JSONObject.java:187)
 	at net.sf.json.JSONObject.fromObject(JSONObject.java:156)
-	at com.dmg.trie.DmgTrieImplTest.TestObject_field8(DmgTrieImplTest.java:534)
+	at com.dmg.trie.DmgTrieImplTest.TestObject_field8(DmgTrieImplTest.java:460)
 	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
 	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
 	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
@@ -317,7 +317,7 @@
 	at net.sf.json.JSONObject._fromString(JSONObject.java:1337)
 	at net.sf.json.JSONObject.fromObject(JSONObject.java:187)
 	at net.sf.json.JSONObject.fromObject(JSONObject.java:156)
-	at com.dmg.trie.DmgTrieImplTest.TestObject_field9(DmgTrieImplTest.java:547)
+	at com.dmg.trie.DmgTrieImplTest.TestObject_field9(DmgTrieImplTest.java:473)
 	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
 	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
 	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
@@ -377,11 +377,6 @@
 </tr>
 </thead>
 <tr>
-<td class="skipped">NewProject</td>
-<td>-</td>
-<td class="skipped">ignored</td>
-</tr>
-<tr>
 <td class="success">TestDelete1</td>
 <td>0.001s</td>
 <td class="success">passed</td>
@@ -393,17 +388,17 @@
 </tr>
 <tr>
 <td class="failures">TestObject_field10</td>
-<td>0.006s</td>
+<td>0.005s</td>
 <td class="failures">failed</td>
 </tr>
 <tr>
 <td class="failures">TestObject_field11</td>
-<td>0.001s</td>
+<td>0.002s</td>
 <td class="failures">failed</td>
 </tr>
 <tr>
 <td class="success">TestObject_field2</td>
-<td>0.003s</td>
+<td>0.002s</td>
 <td class="success">passed</td>
 </tr>
 <tr>
@@ -413,12 +408,12 @@
 </tr>
 <tr>
 <td class="success">TestObject_field4</td>
-<td>0.002s</td>
+<td>0.001s</td>
 <td class="success">passed</td>
 </tr>
 <tr>
 <td class="success">TestObject_field5</td>
-<td>0.001s</td>
+<td>0s</td>
 <td class="success">passed</td>
 </tr>
 <tr>
@@ -428,7 +423,7 @@
 </tr>
 <tr>
 <td class="failures">TestObject_field7</td>
-<td>0.001s</td>
+<td>0s</td>
 <td class="failures">failed</td>
 </tr>
 <tr>
@@ -442,28 +437,8 @@
 <td class="failures">failed</td>
 </tr>
 <tr>
-<td class="skipped">TestSubTrie1</td>
-<td>-</td>
-<td class="skipped">ignored</td>
-</tr>
-<tr>
-<td class="skipped">TestSubTrie1_update</td>
-<td>-</td>
-<td class="skipped">ignored</td>
-</tr>
-<tr>
-<td class="skipped">TestSubTrie2</td>
-<td>-</td>
-<td class="skipped">ignored</td>
-</tr>
-<tr>
-<td class="skipped">TestSubTrie2_update</td>
-<td>-</td>
-<td class="skipped">ignored</td>
-</tr>
-<tr>
 <td class="success">TestTrieDirtyTracking</td>
-<td>0.004s</td>
+<td>0.003s</td>
 <td class="success">passed</td>
 </tr>
 <tr>
@@ -473,7 +448,7 @@
 </tr>
 <tr>
 <td class="success">TestTrieRootCopy</td>
-<td>0.012s</td>
+<td>0.013s</td>
 <td class="success">passed</td>
 </tr>
 <tr>
@@ -482,23 +457,18 @@
 <td class="success">passed</td>
 </tr>
 <tr>
-<td class="success">testDeleteCompletellyDiferentItems</td>
-<td>0.001s</td>
-<td class="success">passed</td>
-</tr>
-<tr>
 <td class="success">testDeleteLongString1</td>
-<td>0.003s</td>
+<td>0.004s</td>
 <td class="success">passed</td>
 </tr>
 <tr>
 <td class="success">testDeleteShortString1</td>
-<td>0.003s</td>
+<td>0.002s</td>
 <td class="success">passed</td>
 </tr>
 <tr>
 <td class="success">testEmptyKey</td>
-<td>0s</td>
+<td>0.001s</td>
 <td class="success">passed</td>
 </tr>
 <tr>
@@ -507,9 +477,9 @@
 <td class="success">passed</td>
 </tr>
 <tr>
-<td class="skipped">testGetFromRootNode</td>
-<td>-</td>
-<td class="skipped">ignored</td>
+<td class="success">testGetFromRootNode</td>
+<td>0.005s</td>
+<td class="success">passed</td>
 </tr>
 <tr>
 <td class="success">testInsertLongString</td>
@@ -518,12 +488,12 @@
 </tr>
 <tr>
 <td class="success">testInsertMultipleItems1</td>
-<td>0.004s</td>
+<td>0.007s</td>
 <td class="success">passed</td>
 </tr>
 <tr>
 <td class="success">testInsertMultipleItems2</td>
-<td>0.003s</td>
+<td>0.002s</td>
 <td class="success">passed</td>
 </tr>
 <tr>
@@ -538,12 +508,12 @@
 </tr>
 <tr>
 <td class="success">testTrieEquals</td>
-<td>0.004s</td>
+<td>0.005s</td>
 <td class="success">passed</td>
 </tr>
 <tr>
 <td class="success">testTrieUndo</td>
-<td>0s</td>
+<td>0.002s</td>
 <td class="success">passed</td>
 </tr>
 <tr>
@@ -553,12 +523,12 @@
 </tr>
 <tr>
 <td class="success">testUpdateShortToLongString</td>
-<td>0.001s</td>
+<td>0.002s</td>
 <td class="success">passed</td>
 </tr>
 <tr>
 <td class="success">testUpdateShortToShortString</td>
-<td>0.002s</td>
+<td>0.001s</td>
 <td class="success">passed</td>
 </tr>
 <tr>
@@ -572,13 +542,6 @@
 <h2>Standard output</h2>
 <span class="code">
 <pre>wrong key
-wrong key
-wrong key
-wrong key
-wrong key
-wrong key
-wrong key
-wrong key
 wrong key
 wrong key
 wrong key
@@ -603,7 +566,7 @@ log4j:WARN See http://logging.apache.org/log4j/1.2/faq.html#noconfig for more in
 <input id="line-wrapping-toggle" type="checkbox" autocomplete="off"/>
 </label>
 </div>Generated by 
-<a href="http://www.gradle.org">Gradle 2.14</a> at Jul 5, 2016 10:28:29 AM</p>
+<a href="http://www.gradle.org">Gradle 2.14</a> at Jul 5, 2016 4:53:45 PM</p>
 </div>
 </div>
 </body>

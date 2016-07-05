@@ -32,13 +32,5 @@ public class JsonTest{
         assertEquals("23", jb.getString("age"));
     }
 
-    @Ignore
-    @Test
-    public void TetsJsonObject() {
-        UserNode  n = new UserNode("0001", "dog", 0, 0, 0, 0, 0, 0);
-        JSONObject jsonObject1 = JSONObject.fromObject(n);  
-        JSONObject jsonObject2 = JSONObject.fromObject(jsonObject1.toString());  
-        assertEquals( jsonObject2.get( "_uid"  ), n.getUid());  
-        assertEquals( jsonObject2.get( "_address"  ), n.getAddress());  
-    }
+
 }
