@@ -585,5 +585,13 @@ public class DmgTrieImplTest {
         DmgTrieImpl.update32(trie, testkey6, jo.toString());
         assertEquals("123", DmgTrieImpl.get32(trie, testkey6, "storage"));
     }
+    @Test
+    public void TestRootHash() {
+    	TrieImpl trie = new TrieImpl(levelDb);
+    	trie.update(cat, dog);
+    	trie.sync();
+    	System.out.println(trie.getRootHash());
+    	System.out.println(levelDb.get(trie.getRootHash()));
+    }
 
 }
