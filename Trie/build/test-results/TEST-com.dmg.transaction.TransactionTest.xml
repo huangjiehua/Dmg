@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="com.dmg.transaction.TransactionTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2016-07-06T14:38:48" hostname="jiehua-node1" time="0.086">
+<testsuite name="com.dmg.transaction.TransactionTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2016-07-06T14:43:28" hostname="jiehua-node1" time="0.091">
   <properties/>
-  <testcase name="TestTransactionList" classname="com.dmg.transaction.TransactionTest" time="0.086"/>
+  <testcase name="TestTransactionList" classname="com.dmg.transaction.TransactionTest" time="0.091"/>
   <system-out><![CDATA[count:2432
 com.dmg.vm.Project
 projectID:40000000000000010000000000000000

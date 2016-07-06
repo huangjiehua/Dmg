@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="com.dmg.vm.VMTest" tests="3" skipped="0" failures="0" errors="0" timestamp="2016-07-06T14:38:48" hostname="jiehua-node1" time="0.021">
+<testsuite name="com.dmg.vm.VMTest" tests="3" skipped="0" failures="0" errors="0" timestamp="2016-07-06T14:43:28" hostname="jiehua-node1" time="0.016">
   <properties/>
-  <testcase name="RealTest" classname="com.dmg.vm.VMTest" time="0.015"/>
-  <testcase name="LordCodeFromTrieTest" classname="com.dmg.vm.VMTest" time="0.004"/>
-  <testcase name="LordCodeTest" classname="com.dmg.vm.VMTest" time="0.002"/>
+  <testcase name="RealTest" classname="com.dmg.vm.VMTest" time="0.011"/>
+  <testcase name="LordCodeFromTrieTest" classname="com.dmg.vm.VMTest" time="0.002"/>
+  <testcase name="LordCodeTest" classname="com.dmg.vm.VMTest" time="0.001"/>
   <system-out><![CDATA[count:2432
 count1:484
 count2:2432

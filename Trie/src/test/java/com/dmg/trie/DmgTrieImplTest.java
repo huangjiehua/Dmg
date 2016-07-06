@@ -585,6 +585,7 @@ public class DmgTrieImplTest {
         DmgTrieImpl.update32(trie, testkey6, jo.toString());
         assertEquals("123", DmgTrieImpl.get32(trie, testkey6, "storage"));
     }
+    @Ignore
     @Test
     public void TestRootHash() {
     	TrieImpl trie = new TrieImpl(levelDb);
