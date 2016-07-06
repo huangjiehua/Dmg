@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.dmg.transaction.TransactionTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2016-07-06T14:38:48" hostname="jiehua-node1" time="0.086">
+  <properties/>
+  <testcase name="TestTransactionList" classname="com.dmg.transaction.TransactionTest" time="0.086"/>
+  <system-out><![CDATA[count:2432
+com.dmg.vm.Project
+projectID:40000000000000010000000000000000
+count:2432
+com.dmg.vm.Project
+count:484
+com.dmg.vm.Contract
+payback
+]]></system-out>
+  <system-err><![CDATA[log4j:WARN No appenders could be found for logger (trie).
+log4j:WARN Please initialize the log4j system properly.
+log4j:WARN See http://logging.apache.org/log4j/1.2/faq.html#noconfig for more info.
+]]></system-err>
+</testsuite>
